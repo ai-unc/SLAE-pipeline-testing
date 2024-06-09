@@ -1,0 +1,96 @@
+{
+    "PaperTitle": "test_paper",
+    "PaperContents": "The review establishes several correlational relationships in the context of substance use and disorder among American Indian and Alaska Native (AI/AN) populations in the United States. Notably, AI/AN status correlates with elevated rates of substance-related mortality, with alcohol-related deaths, chronic liver disease, and drug-related issues being notably higher. Additionally, AI/AN adolescents exhibit earlier initiation and higher rates of substance use, particularly among those living on reservations or who have dropped out of school, while AI/AN adults who drink tend to engage in heavy, episodic drinking patterns. Correlations are also observed between AI/AN communities and substance availability, trauma exposure, family and peer networks, and historical trauma, all of which impact substance use patterns and disparities within these communities. These correlational findings emphasize the multifaceted nature of substance use issues in AI/AN populations and highlight potential areas for targeted intervention and prevention efforts.",
+    "Relations": [
+    {
+        "VariableOneName": "AI/AN status",
+        "VariableTwoName": "Substance-related mortality",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN status correlates with elevated rates of substance-related mortality."
+    },
+    {
+        "VariableOneName": "AI/AN status",
+        "VariableTwoName": "Alcohol-related deaths",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN status correlates with elevated rates of alcohol-related deaths."
+    },
+    {
+        "VariableOneName": "AI/AN status",
+        "VariableTwoName": "Chronic liver disease",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN status correlates with elevated rates of chronic liver disease."
+    },
+    {
+        "VariableOneName": "AI/AN status",
+        "VariableTwoName": "Drug-related issues",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN status correlates with elevated rates of drug-related issues."
+    },
+    {
+        "VariableOneName": "AI/AN adolescents",
+        "VariableTwoName": "Substance use initiation",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN adolescents exhibit earlier initiation of substance use."
+    },
+    {
+        "VariableOneName": "AI/AN adolescents",
+        "VariableTwoName": "Substance use rates",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN adolescents exhibit higher rates of substance use."
+    },
+    {
+        "VariableOneName": "AI/AN adolescents",
+        "VariableTwoName": "Living on reservations",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN adolescents living on reservations exhibit higher rates of substance use."
+    },
+    {
+        "VariableOneName": "AI/AN adolescents",
+        "VariableTwoName": "Dropped out of school",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN adolescents who have dropped out of school exhibit higher rates of substance use."
+    },
+    {
+        "VariableOneName": "AI/AN adults who drink",
+        "VariableTwoName": "Heavy, episodic drinking patterns",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "AI/AN adults who drink tend to engage in heavy, episodic drinking patterns."
+    },
+    {
+        "VariableOneName": "AI/AN communities",
+        "VariableTwoName": "Substance availability",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "Correlations are observed between AI/AN communities and substance availability."
+    },
+    {
+        "VariableOneName": "AI/AN communities",
+        "VariableTwoName": "Trauma exposure",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "Correlations are observed between AI/AN communities and trauma exposure."
+    },
+    {
+        "VariableOneName": "AI/AN communities",
+        "VariableTwoName": "Family and peer networks",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "Correlations are observed between AI/AN communities and family and peer networks."
+    },
+    {
+        "VariableOneName": "AI/AN communities",
+        "VariableTwoName": "Historical trauma",
+        "RelationshipClassification": "direct",
+        "IsCausal": "False",
+        "SupportingText": "Correlations are observed between AI/AN communities and historical trauma."
+    }
+]}

@@ -1,0 +1,30 @@
+model: gemini-1.5-flash
+
+# text, format_instructions and relationships are automatically generated variables
+prompt: |
+  START TEXT
+  {text}
+  END TEXT
+
+  START PROMPT
+  Given the text validate a series of relationships between variables that will be included in a json format below.
+  For example, if the json includes a relation like "Country's per capita income -> Country's literacy rate", and the text includes "We find a strong correlation p < .0001 between a country's per capita income and it's literacy rate" then the RelationshipClassification would be direct.
+  If instead the text includes ""We find a strong inverse correlation p < .0001 between a country's per capita income and it's literacy rate" then the RelationshipClassification would be inverse.
+  The SupportText field of your output should include verbaitum text related to the relation between the two variables without paraphrasing.
+  The Reasoning field should be used to step by step reason from the text of the paper to try to come up with a good relationship classification and should focus on plainly stated results over implications.
+  The RelationshipClassification field can only be 'direct', 'inverse', 'not applicable', or 'independent'.
+  Direct means that an increase in one would cause a decrease in another, and inverse means that an increase in one would cause a decrease in another.
+  Independent means there is no clear relationship between the two variables. Not applicable means the text does not suggest anything about the relationship between the two variables. 
+  Use exactly wording of outputs choices and input variable names, including capitalization choices. No values may be null. Instead, write "N/A". IsCausal must be "true" or "false".
+  Make sure not to leave out any relationships, and make sure not to create any new relationships that are not asked for.
+  OUTPUT FORMATTING INSTRUCTIONS START
+  {format_instructions}
+  OUTPUT FORMATTING INSTRUCTIONS END
+
+  Below is the list of relationships that you should include in your output. Ensure all relationships are evaluated and reproduced with same capitalization and spelling!
+  {relationships}
+  End of the list of relationships.
+
+  END PROMPT
+
+verbose: True
