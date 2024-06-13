@@ -88,27 +88,6 @@ def extract_all_ordered_pairs(data:Dict) -> List[str]:
         variable_pairs.append(variable_one + " -> " + variable_two)
     return variable_pairs
 
-def cluster_text(text:str) -> List[str]:
-  """
-  Splits text into a list of its paragraphs, then combines similar paragraphs into clusters and returns a list of clusters
-  """
-  segments : List[str] = text.split(".\n")    #split text into paragraphs
-  if len(segments) == 1: return segments  #return if only one paragraph
-  
-  segment_embeddings = embeddingModel.encode(segments)
-    
-  # Cluster together similar segments using KMeans
-  CLUSTER_DIVISOR:int = 3  # <- this is a hyperparameter that could be tuned
-  num_clusters = max(1, len(segments) // CLUSTER_DIVISOR) # make sure there is at least one cluster
-  kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(segment_embeddings)
-
-  #Group segments into clusters based on KMean clustering
-  clusters : Dict = {}
-  for seg,k in zip(segments, kmeans.labels_):
-    if k not in clusters: clusters[k] = ""
-    clusters[k] += (seg) + "\n"
-  return list(clusters.values())
-
 def call_LLM(text, model:genai.GenerativeModel) -> str:
   """Used to call the LLM model with ResourceExhausted handling"""
   try:
@@ -121,26 +100,31 @@ def call_LLM(text, model:genai.GenerativeModel) -> str:
     
 def summarize(text:str, model:genai.GenerativeModel) -> str:
   """Used to summarize text during pre-processing"""
-  prompt = "Please provide a detailed summary of the above text in the form of a paragraph." # <- prompt engineering would probably help here
-  return call_LLM(text + "\n\n\n" + prompt, model)
+  prompt = \
+    """
+    {text}
+    
+    Please provide a detailed summary of the above academic paper.
+    Include a comprehensive overview of the main research question, methodology, key findings, and conclusions.
+    Emphasize the findings by detailing the data analysis methods used,
+    significant results, how these results address the research question,
+    and any implications or recommendations made by the authors.
+    Also, mention any limitations of the study acknowledged by the authors.
+    Conclude with the potential impact of this research in its respective field.
+    """
+  return call_LLM(prompt, model)
 
-def pipeline_old(data:Dict, model:genai.GenerativeModel, prompt:str, *, num_iterations:int, verbose:bool=False) -> Dict:
+def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool=False) -> Dict:
   """
   data should already be cleaned
   """
   paper_text = data["PaperContents"]
   data["PaperContents"] = ""  # Remove paper fulltext from output to avoid clogging telemetry
   
-  # Summarize paper using specified iterations
-  for i in range(num_iterations):
-    if verbose: print(f"clustering for iteration {i+1}")
-    clusters = cluster_text(paper_text)
-    paper_text = ""
-    if verbose: print(f"summarizing for iteration {i+1}")
-    for cluster in clusters:
-      summary = summarize(cluster, model)
-      paper_text += summary.text
-    if verbose: print(f"Iteration {i+1} of {num_iterations} complete")
+  # Summarize paper
+  if verbose: print("Summarizing paper...")
+  
+  paper_text = summarize(paper_text, model)  
     
   # Extract relationships from the summarized text
   relationships:str = "Below is a list of relationships:\n"
@@ -161,69 +145,7 @@ def pipeline_old(data:Dict, model:genai.GenerativeModel, prompt:str, *, num_iter
   parsed_output = parser.parse(output.text)
   return parsed_output.dict()
 
-def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, num_iterations:int, verbose:bool=False) -> Dict:
-  """
-  data should already be cleaned
-  This pipeline uses embedding similarity to match relations to summaries
-  """
-  paper_text = data["PaperContents"]
-  data["PaperContents"] = ""  # Remove paper fulltext from output to avoid clogging telemetry
-  
-  # Summarize paper using specified iterations
-  # NOTE: this method keeps all layers of summaries
-  summaries = []
-  for i in range(num_iterations):
-    if verbose: print(f"clustering for iteration {i+1}")
-    clusters = cluster_text(paper_text)
-    paper_text = ""
-    if verbose: print(f"summarizing for iteration {i+1}")
-    for cluster in clusters:
-      summary = summarize(cluster, model)
-      summaries.append(summary.text)
-      paper_text += summary.text
-    if verbose: print(f"Iteration {i+1} of {num_iterations} complete")
-    
-  # Extract relationships from the summarized text
-  relationships:List[str] = extract_all_ordered_pairs(data)
-  parser = PydanticOutputParser(pydantic_object=ListOfRelations) #Refers to a class called SingleRelation.
-  prompt_template = PromptTemplate(
-                          template=prompt,
-                          input_variables=["text", "relationships"],
-                          partial_variables={"format_instructions":parser.get_format_instructions}
-                          )
-  
-  summary_embeddings = embeddingModel.encode(summaries)
-  relation_embeddings = embeddingModel.encode(relationships)
-  
-  # Allocate relations to their most relevant summary
-  allocated_relations = {s:[] for s in summaries}
-  for i,relation in enumerate(relationships):
-    similarities = pytorch_cos_sim(relation_embeddings[i], summary_embeddings)
-    most_similar = summaries[similarities.argmax()]
-    allocated_relations[most_similar].append(relation)
-  
-  output_jsons = []
-  for summary,relations in allocated_relations.items():
-    if(len(relations) == 0): continue
-    input_text = prompt_template.format_prompt(text=summary, relationships="\n".join(relations)).to_string()
-    output = call_LLM(input_text, model)
-    output_jsons.append(output)
-    if verbose: print(f"Summary complete. Output:\n{output.text}")
-  
-  if verbose: print(f"Pipeline complete. Output:\n{output.text}")
-  
-  #ensure correct formatting and merge all outputs
-  parsed_output = {"Relations":[]}
-  for oj in output_jsons:
-    parsed_json = parser.parse(oj.text).dict()
-    for relation in parsed_json["Relations"]:
-      if relation not in parsed_output["Relations"]:
-        parsed_output["Relations"].append(relation)
-  
-  return parsed_output
-
-
-def call_pipeline(data_path:str, settings_path:str) -> Dict:
+def call_pipeline(data_path, settings_path:str) -> Dict:
   with open(settings_path, "r") as f:
     pipeline_settings = yaml.safe_load(f)
     verbose = pipeline_settings["verbose"]
@@ -232,15 +154,14 @@ def call_pipeline(data_path:str, settings_path:str) -> Dict:
                                   generation_config=generation_config,
                                   safety_settings=safety_settings)
   data = clean_data(data_path)
-  return pipeline(data, model, prompt, num_iterations=1, verbose=verbose) # Toggle here between pipeline_old and pipeline for different methods
-
+  return pipeline(data, model, prompt, verbose=verbose) # Toggle here between pipeline_old and pipeline for different methods
 
 if __name__ == "__main__":
   EVALUATE = True
   RANDOMIZE = True
   DEBUG = True
-  NUM_TRIALS = 3
-  NUM_PAPERS = 1
+  NUM_TRIALS = 5
+  NUM_PAPERS = 2
   
   def score(solution:List[Dict], submission:List[Dict]) -> float:
     total_score = 0
@@ -301,3 +222,6 @@ if __name__ == "__main__":
     print(f"Average accuracy score: {mean(accuracy_scores)}")
     print(f"Median accuracy score: {median(accuracy_scores)}")
     print(f"Standard deviation: {stdev(accuracy_scores)}")
+        
+        
+        
