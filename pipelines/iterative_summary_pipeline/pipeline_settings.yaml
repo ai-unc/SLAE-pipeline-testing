@@ -15,7 +15,7 @@ prompt: |
   The RelationshipClassification field can only be 'direct', 'inverse', 'not applicable', or 'independent'.
   Direct means that an increase in one would cause a decrease in another, and inverse means that an increase in one would cause a decrease in another.
   Independent means there is no clear relationship between the two variables. Not applicable means the text does not suggest anything about the relationship between the two variables. 
-  Use exactly wording of outputs choices and input variable names, including capitalization choices. No values may be null. Instead, write "N/A". IsCausal must be "true" or "false".
+  Use EXACT wording of outputs choices and input variable names, including combined variables. No values may be null. Instead, write "N/A". IsCausal must be "true" or "false".
 
   OUTPUT FORMATTING INSTRUCTIONS START
   {format_instructions}
