@@ -219,14 +219,13 @@ def call_pipeline(data_path:str, settings_path:str) -> Dict:
 
 if __name__ == "__main__":
   EVALUATE = True
-  RANDOMIZE = False
+  RANDOMIZE = True
   DEBUG = True
-  NUM_TRIALS = 1
-  NUM_PAPERS = 10
+  NUM_TRIALS = 5
+  NUM_PAPERS = 2
   
-  def score(solution:List[Dict], submission:List[Dict]) -> float:
-    total_score = 0
-    total_relations = 0
+  def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
+    scores = {}
     for i, paper in enumerate(submission):
       ground_truth = solution[i]
       if DEBUG:
@@ -244,17 +243,17 @@ if __name__ == "__main__":
         print(*extract_all_ordered_pairs(ground_truth), sep="\n")
         raise RelationCountError(f"Prediction has {len(paper['Relations'])} relations and ground truth has {len(ground_truth['Relations'])}.")
       
-      total_relations += len(ground_truth["Relations"])
-        
+      score = 0
       for j, prediction in enumerate(paper["Relations"]):
         relation = ground_truth["Relations"][j]
-        total_score += 1 if relation["RelationshipClassification"].lower().strip() == prediction["RelationshipClassification"].lower().strip() else 0
-
-    final_score = total_score / total_relations
-    return final_score * 100
+        score += 1 if relation["RelationshipClassification"].lower().strip() == prediction["RelationshipClassification"].lower().strip() else 0
+      paper_score = score / len(ground_truth["Relations"])
+      scores["PaperTitle"] = paper_score
+    
+    return scores
   
   if EVALUATE:
-    accuracy_scores = []
+    trial_scores = []
       
     for _ in range(NUM_TRIALS):
         # Load data
@@ -267,7 +266,6 @@ if __name__ == "__main__":
         for paper in source[:NUM_PAPERS]:
             prediction = call_pipeline(data_path=f"./pipeline_evaluator/full_dataset/{paper}",
                                         settings_path="./pipelines/iterative_summary_pipeline/pipeline_settings.yaml")
-            
             predictions.append(prediction)
         
         #score
@@ -275,14 +273,14 @@ if __name__ == "__main__":
         for p in source[:NUM_PAPERS]:
             with open(f"./pipeline_evaluator/full_dataset/{p}") as f:
                 papers.append(json.load(f))
-        eval_score = score(papers, predictions)
-        accuracy_scores.append(eval_score)
+        eval_scores = score(papers, predictions)
+        trial_scores.append(mean(eval_scores.values()))
     print("\n\n\n")
-    if len(accuracy_scores) == 1:
-      print("Accuracy score:", accuracy_scores[0])
+    if len(trial_scores) == 1:
+      print("Accuracy scores:", eval_scores)
     else:
       print("Number of trials:", NUM_TRIALS)
-      print(f"Accuracy scores: {accuracy_scores}")
-      print(f"Average accuracy score: {mean(accuracy_scores)}")
-      print(f"Median accuracy score: {median(accuracy_scores)}")
-      print(f"Standard deviation: {stdev(accuracy_scores)}")
+      print(f"Accuracy scores: {trial_scores}")
+      print(f"Average accuracy score: {mean(trial_scores)}")
+      print(f"Median accuracy score: {median(trial_scores)}")
+      print(f"Standard deviation: {stdev(trial_scores)}")
