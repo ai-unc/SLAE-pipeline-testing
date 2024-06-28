@@ -160,8 +160,8 @@ if __name__ == "__main__":
   EVALUATE = True
   RANDOMIZE = True
   DEBUG = True
-  NUM_TRIALS = 5
-  NUM_PAPERS = 2
+  NUM_TRIALS = 1
+  NUM_PAPERS = 10
   
   def score(solution:List[Dict], submission:List[Dict]) -> float:
     total_score = 0
@@ -178,9 +178,9 @@ if __name__ == "__main__":
         raise Exception("Key error: Relations. Check with organizers.")
       if len(paper["Relations"]) != len(ground_truth["Relations"]):
         print("\n\n\nGUESS:")
-        print(paper["Relations"])
+        print(*extract_all_ordered_pairs(paper), sep="\n")
         print("\n\n\nGROUND TRUTH:")
-        print(ground_truth["Relations"])
+        print(*extract_all_ordered_pairs(ground_truth), sep="\n")
         raise Exception(f"Prediction has {len(paper['Relations'])} relations and ground truth has {len(ground_truth['Relations'])}.")
       
       total_relations += len(ground_truth["Relations"])
@@ -199,7 +199,7 @@ if __name__ == "__main__":
         # Load data
         source = [file for file in os.listdir("./pipeline_evaluator/full_dataset")]
         if RANDOMIZE:
-            shuffle(source)
+          shuffle(source)
         
         # Make Predictions
         predictions = []

@@ -1,5 +1,4 @@
 import google.generativeai as genai
-import os
 import pandas as pd
 import json
 import yaml
@@ -14,8 +13,9 @@ from google.api_core.exceptions import ResourceExhausted
 from time import sleep
 from random import shuffle
 from statistics import mean, median, stdev
+from os import listdir, getenv
 
-key = os.getenv("GOOGLE_API_KEY")
+key = getenv("GOOGLE_API_KEY")
 genai.configure(api_key=key)
 
 
@@ -34,7 +34,12 @@ class SingleRelation(BaseModel):
             raise ValueError(f"Invalid Relationship Type {{{field}}}")
 
 class ListOfRelations(BaseModel):
-    Relations: list[SingleRelation]
+  Relations: list[SingleRelation]
+
+class RelationCountError(Exception):
+  def __init__(self, message):
+    self.message = message
+    super().__init__(self.message)
 
 # Model parameters
 generation_config = {
@@ -110,7 +115,7 @@ def cluster_text(text:str) -> List[str]:
   return list(clusters.values())
 
 def call_LLM(text, model:genai.GenerativeModel) -> str:
-  """Used to call the LLM model with ResourceExhausted handling"""
+  """Used to call a Google LLM model with ResourceExhausted handling"""
   try:
     result = model.generate_content(text)
     return result
@@ -124,7 +129,7 @@ def summarize(text:str, model:genai.GenerativeModel) -> str:
   prompt = "Please provide a detailed summary of the above text in the form of a paragraph." # <- prompt engineering would probably help here
   return call_LLM(text + "\n\n\n" + prompt, model)
 
-def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool=False) -> Dict:
+def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=False) -> Dict:
   """
   data should already be cleaned
   This pipeline uses embedding similarity to match relations to summaries
@@ -161,20 +166,23 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool
   output_jsons = []
   for summary,relations in allocated_relations.items():
     if(len(relations) == 0): continue
-    input_text = prompt_template.format_prompt(text=summary, relationships="\n".join(relations)).to_string()
+    input_text = prompt_template.format_prompt(text=summary, relationships="\n".join(relations), count=len(relations)).to_string()
     output = call_LLM(input_text, model)
     output_jsons.append(output)
-    if verbose: print(f"Summary complete. Output:\n{output.text}")
+    if debug: print(f"Summary complete. Output:\n{output.text}")
   
-  if verbose: print(f"Pipeline complete. Output:\n{output.text}")
+  if debug: print(f"Pipeline complete. Output:\n{output.text}")
   
   #ensure correct formatting and merge all outputs
   parsed_output = {"Relations":[]}
-  for oj in output_jsons:
-    parsed_json = parser.parse(oj.text).dict()
+  for output_json in output_jsons:
+    parsed_json = parser.parse(output_json.text).dict()
     for relation in parsed_json["Relations"]:
       if relation not in parsed_output["Relations"]:
         parsed_output["Relations"].append(relation)
+  
+  # ensure only desired relations are present
+  ...
   
   return parsed_output
 
@@ -182,21 +190,21 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool
 def call_pipeline(data_path:str, settings_path:str) -> Dict:
   with open(settings_path, "r") as f:
     pipeline_settings = yaml.safe_load(f)
-    verbose = pipeline_settings["verbose"]
+    debug = pipeline_settings["verbose"]
     prompt = pipeline_settings["prompt"]
     model = genai.GenerativeModel(model_name=pipeline_settings["model"],
                                   generation_config=generation_config,
                                   safety_settings=safety_settings)
   data = clean_data(data_path)
-  return pipeline(data, model, prompt, verbose=verbose) # Toggle here between pipeline_old and pipeline for different methods
+  return pipeline(data, model, prompt, debug=debug) # Toggle here between pipeline_old and pipeline for different methods
 
 
 if __name__ == "__main__":
   EVALUATE = True
   RANDOMIZE = False
   DEBUG = True
-  NUM_TRIALS = 2
-  NUM_PAPERS = 5
+  NUM_TRIALS = 1
+  NUM_PAPERS = 7
   
   def score(solution:List[Dict], submission:List[Dict]) -> float:
     total_score = 0
@@ -210,13 +218,13 @@ if __name__ == "__main__":
         print(*[r["RelationshipClassification"] for r in ground_truth["Relations"]], sep="\n")
         
       if "Relations" not in paper or "Relations" not in ground_truth:
-        raise Exception("Key error: Relations. Check with organizers.")
+        raise Exception("Key error: Relations.")
       if len(paper["Relations"]) != len(ground_truth["Relations"]):
         print("\n\n\nGUESS:")
         print(*extract_all_ordered_pairs(paper), sep="\n")
         print("\n\n\nGROUND TRUTH:")
         print(*extract_all_ordered_pairs(ground_truth), sep="\n")
-        raise Exception(f"Prediction has {len(paper['Relations'])} relations and ground truth has {len(ground_truth['Relations'])}.")
+        raise RelationCountError(f"Prediction has {len(paper['Relations'])} relations and ground truth has {len(ground_truth['Relations'])}.")
       
       total_relations += len(ground_truth["Relations"])
         
@@ -232,7 +240,7 @@ if __name__ == "__main__":
       
     for _ in range(NUM_TRIALS):
         # Load data
-        source = [file for file in os.listdir("./pipeline_evaluator/full_dataset")]
+        source = [file for file in listdir("./pipeline_evaluator/full_dataset")]
         if RANDOMIZE:
           shuffle(source)
         
