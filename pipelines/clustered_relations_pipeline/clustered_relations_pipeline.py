@@ -219,7 +219,7 @@ def call_pipeline(data_path:str, settings_path:str) -> Dict:
 
 if __name__ == "__main__":
   EVALUATE = True
-  RANDOMIZE = True
+  RANDOMIZE = False
   DEBUG = True
   NUM_TRIALS = 1
   NUM_PAPERS = 15
@@ -248,7 +248,7 @@ if __name__ == "__main__":
         relation = ground_truth["Relations"][j]
         score += 1 if relation["RelationshipClassification"].lower().strip() == prediction["RelationshipClassification"].lower().strip() else 0
       paper_score = score / len(ground_truth["Relations"])
-      scores["PaperTitle"] = paper_score
+      scores[paper["PaperTitle"]] = paper_score
     
     return scores
   
