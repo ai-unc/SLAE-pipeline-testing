@@ -222,7 +222,7 @@ if __name__ == "__main__":
   RANDOMIZE = False
   DEBUG = True
   NUM_TRIALS = 1
-  NUM_PAPERS = 15
+  NUM_PAPERS = 1
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}
@@ -247,8 +247,8 @@ if __name__ == "__main__":
       for j, prediction in enumerate(paper["Relations"]):
         relation = ground_truth["Relations"][j]
         score += 1 if relation["RelationshipClassification"].lower().strip() == prediction["RelationshipClassification"].lower().strip() else 0
-      paper_score = score / len(ground_truth["Relations"])
-      scores[paper["PaperTitle"]] = paper_score
+      paper_score = (score / len(ground_truth["Relations"])) * 100
+      scores[ground_truth["PaperTitle"]] = paper_score
     
     return scores
   
@@ -278,9 +278,10 @@ if __name__ == "__main__":
     print("\n\n\n")
     if len(trial_scores) == 1:
       print(f"Accuracy scores: {eval_scores}")
-      print(f"Average accuracy score: {mean(eval_scores.values())}")
-      print(f"Median accuracy score: {median(eval_scores.values())}")
-      print(f"Standard deviation: {stdev(eval_scores.values())}")
+      if len(eval_scores) > 1:
+        print(f"Average accuracy score: {mean(eval_scores.values())}")
+        print(f"Median accuracy score: {median(eval_scores.values())}")
+        print(f"Standard deviation: {stdev(eval_scores.values())}")
     else:
       print("Number of trials:", NUM_TRIALS)
       print(f"Accuracy scores: {trial_scores}")
