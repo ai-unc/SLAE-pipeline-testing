@@ -53,7 +53,7 @@
         },
         {
             "VariableOneName": "negative attention bias",
-            "VariableTwoName": "neutral attention bias;",
+            "VariableTwoName": "neutral attention bias",
             "RelationshipClassification": "positive",
             "IsCausal": "yes",
             "Attributes": "attention biases for negative (dysphoric + threat related) and neutral words are all positively correlated with one another. ",
@@ -93,7 +93,7 @@
         },
         {
             "VariableOneName": "depression",
-            "VariableTwoName": "neutral attention bias;",
+            "VariableTwoName": "neutral attention bias",
             "RelationshipClassification": "independent",
             "IsCausal": "no",
             "Attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
