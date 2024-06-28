@@ -93,7 +93,7 @@ def extract_all_ordered_pairs(data:Dict) -> List[str]:
         variable_pairs.append(variable_one + " -> " + variable_two)
     return variable_pairs
 
-def cluster_text(text:str) -> List[str]:
+def cluster_text(text:str, num_clusters:int) -> List[str]:
   """
   Splits text into a list of its paragraphs, then combines similar paragraphs into clusters and returns a list of clusters
   """
@@ -103,8 +103,6 @@ def cluster_text(text:str) -> List[str]:
   segment_embeddings = embeddingModel.encode(segments)
     
   # Cluster together similar segments using KMeans
-  CLUSTER_DIVISOR:int = 3  # <- this is a hyperparameter that could be tuned
-  num_clusters = max(1, len(segments) // CLUSTER_DIVISOR) # make sure there is at least one cluster
   kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(segment_embeddings)
 
   #Group segments into clusters based on KMean clustering
@@ -126,7 +124,14 @@ def call_LLM(text, model:genai.GenerativeModel) -> str:
     
 def summarize(text:str, model:genai.GenerativeModel) -> str:
   """Used to summarize text during pre-processing"""
-  prompt = "Please provide a detailed summary of the above text in the form of a paragraph." # <- prompt engineering would probably help here
+  prompt = \
+    """
+    Please provide a detailed summary of the above academic paper in the form of a detailed paragraph.
+    Include a comprehensive overview of the main research question, methodology, key findings, and conclusions.
+    Emphasize the findings by detailing the data analysis methods used, significant results,
+    how these results address the research question, and any implications or recommendations made by the authors. 
+    Also, mention any limitations of the study acknowledged by the authors.
+    Conclude with the potential impact of this research in its respective field."""
   return call_LLM(text + "\n\n\n" + prompt, model)
 
 def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=False) -> Dict:
@@ -136,16 +141,18 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
   """
   paper_text = data["PaperContents"]
   
+  # Extract relationships from the summarized text
+  relationships:List[str] = extract_all_ordered_pairs(data)
+  
   #Create clusters and summarize
+  CLUSTER_DIVISOR = 6 #The number of clusters is (num relationships // this number). Higher numbers result in fewer clusters.
   summaries = []
-  clusters = cluster_text(paper_text)
+  clusters = cluster_text(paper_text, max(1, len(relationships)//CLUSTER_DIVISOR)) # ensure at least one cluster
   paper_text = ""
   for cluster in clusters:
     summary = summarize(cluster, model)
     summaries.append(summary.text)
     
-  # Extract relationships from the summarized text
-  relationships:List[str] = extract_all_ordered_pairs(data)
   parser = PydanticOutputParser(pydantic_object=ListOfRelations) #Refers to a class called SingleRelation.
   prompt_template = PromptTemplate(
                           template=prompt,
@@ -181,12 +188,13 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
       if relation not in parsed_output["Relations"]:
         parsed_output["Relations"].append(relation)
   
+  if debug: print(f"Parsed output:\n{parsed_output}")
   # ensure only desired relations are present
-  
+
   final_output = {"Relations":data["Relations"]}
   #set all relations to a default of not applicable
   for relation in final_output["Relations"]:
-    relation["RelationshipClassification"] = "Not Applicable"
+    relation["RelationshipClassification"] = "not applicable"
   
   # Create a dictionary for quick lookup of relations
   parsed_relations_dict = {
@@ -221,7 +229,7 @@ if __name__ == "__main__":
   EVALUATE = True
   RANDOMIZE = False
   DEBUG = True
-  NUM_TRIALS = 1
+  NUM_TRIALS = 3
   NUM_PAPERS = 1
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
