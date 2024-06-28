@@ -221,8 +221,8 @@ if __name__ == "__main__":
   EVALUATE = True
   RANDOMIZE = True
   DEBUG = True
-  NUM_TRIALS = 5
-  NUM_PAPERS = 2
+  NUM_TRIALS = 1
+  NUM_PAPERS = 15
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}
@@ -277,7 +277,10 @@ if __name__ == "__main__":
         trial_scores.append(mean(eval_scores.values()))
     print("\n\n\n")
     if len(trial_scores) == 1:
-      print("Accuracy scores:", eval_scores)
+      print(f"Accuracy scores: {eval_scores}")
+      print(f"Average accuracy score: {mean(eval_scores.values())}")
+      print(f"Median accuracy score: {median(eval_scores.values())}")
+      print(f"Standard deviation: {stdev(eval_scores.values())}")
     else:
       print("Number of trials:", NUM_TRIALS)
       print(f"Accuracy scores: {trial_scores}")
