@@ -21,14 +21,6 @@
         },
         {
             "VariableOneName": "major depressive disorder",
-            "VariableTwoName": "job related physical demands",
-            "RelationshipClassification": "direct",
-            "IsCausal": "no",
-            "Attributes": "NA",
-            "SupportingText": "and higher mean physical demands than controls"
-        },
-        {
-            "VariableOneName": "major depressive disorder",
             "VariableTwoName": "job-related psychological demands",
             "RelationshipClassification": "independent",
             "IsCausal": "no",
