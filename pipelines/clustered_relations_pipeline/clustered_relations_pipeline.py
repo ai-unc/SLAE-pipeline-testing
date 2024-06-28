@@ -182,10 +182,28 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
         parsed_output["Relations"].append(relation)
   
   # ensure only desired relations are present
-  ...
   
-  return parsed_output
+  final_output = {"Relations":data["Relations"]}
+  #set all relations to a default of not applicable
+  for relation in final_output["Relations"]:
+    relation["RelationshipClassification"] = "Not Applicable"
+  
+  # Create a dictionary for quick lookup of relations
+  parsed_relations_dict = {
+    (relation["VariableOneName"], relation["VariableTwoName"]): relation
+    for relation in parsed_output["Relations"]
+}
 
+  # Update the final_output based on the dictionary
+  for relation in final_output["Relations"]:
+    key = (relation["VariableOneName"], relation["VariableTwoName"])
+    if key in parsed_relations_dict:
+        parsed_relation = parsed_relations_dict[key]
+        relation["RelationshipClassification"] = parsed_relation["RelationshipClassification"]
+        relation["isCausal"] = parsed_relation["isCausal"]
+        relation["SupportingText"] = parsed_relation["SupportingText"]
+  
+  return final_output
 
 def call_pipeline(data_path:str, settings_path:str) -> Dict:
   with open(settings_path, "r") as f:
@@ -204,7 +222,7 @@ if __name__ == "__main__":
   RANDOMIZE = False
   DEBUG = True
   NUM_TRIALS = 1
-  NUM_PAPERS = 7
+  NUM_PAPERS = 10
   
   def score(solution:List[Dict], submission:List[Dict]) -> float:
     total_score = 0
