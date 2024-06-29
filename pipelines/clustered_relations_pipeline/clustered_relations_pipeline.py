@@ -116,11 +116,14 @@ def call_LLM(text, model:genai.GenerativeModel) -> str:
   """Used to call a Google LLM model with ResourceExhausted handling"""
   try:
     result = model.generate_content(text)
-    return result
+    return result.text
   except ResourceExhausted:
     print("ResourceExhausted error. Retrying in 15 seconds...")
     sleep(15)
     return call_LLM(text, model)
+  except ValueError as e:
+    print(result)
+    raise ValueError(f"ValueError: {e}")
     
 def summarize(text:str, model:genai.GenerativeModel) -> str:
   """Used to summarize text during pre-processing"""
@@ -145,15 +148,15 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
   relationships:List[str] = extract_all_ordered_pairs(data)
   
   #Create clusters and summarize
-  CLUSTER_DIVISOR = 6 #The number of clusters is (num relationships // this number). Higher numbers result in fewer clusters.
+  CLUSTER_MULTIPLIER:float = 0.0 #The number of clusters is (num relationships * this number).
   summaries = []
-  clusters = cluster_text(paper_text, max(1, len(relationships)//CLUSTER_DIVISOR)) # ensure at least one cluster
+  clusters = cluster_text(paper_text, max(1, int(len(relationships)*CLUSTER_MULTIPLIER + 1))) # ensure at least one cluster
   paper_text = ""
   for cluster in clusters:
     summary = summarize(cluster, model)
-    summaries.append(summary.text)
+    summaries.append(summary)
     
-  parser = PydanticOutputParser(pydantic_object=ListOfRelations) #Refers to a class called SingleRelation.
+  parser = PydanticOutputParser(pydantic_object=ListOfRelations)
   prompt_template = PromptTemplate(
                           template=prompt,
                           input_variables=["text", "relationships"],
@@ -176,14 +179,14 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
     input_text = prompt_template.format_prompt(text=summary, relationships="\n".join(relations), count=len(relations)).to_string()
     output = call_LLM(input_text, model)
     output_jsons.append(output)
-    if debug: print(f"Summary complete. Output:\n{output.text}")
+    if debug: print(f"Summary complete. Output:\n{output}")
   
-  if debug: print(f"Pipeline complete. Output:\n{output.text}")
+  if debug: print(f"Pipeline complete. Output:\n{output}")
   
   #ensure correct formatting and merge all outputs
   parsed_output = {"Relations":[]}
   for output_json in output_jsons:
-    parsed_json = parser.parse(output_json.text).dict()
+    parsed_json = parser.parse(output_json).dict()
     for relation in parsed_json["Relations"]:
       if relation not in parsed_output["Relations"]:
         parsed_output["Relations"].append(relation)
@@ -227,10 +230,10 @@ def call_pipeline(data_path:str, settings_path:str) -> Dict:
 
 if __name__ == "__main__":
   EVALUATE = True
-  RANDOMIZE = False
+  RANDOMIZE = True
   DEBUG = True
-  NUM_TRIALS = 3
-  NUM_PAPERS = 1
+  NUM_TRIALS = 1
+  NUM_PAPERS = 10
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}
@@ -285,7 +288,8 @@ if __name__ == "__main__":
         trial_scores.append(mean(eval_scores.values()))
     print("\n\n\n")
     if len(trial_scores) == 1:
-      print(f"Accuracy scores: {eval_scores}")
+      for title, score_ in eval_scores.items():
+        print(f"{title}: {score_}")
       if len(eval_scores) > 1:
         print(f"Average accuracy score: {mean(eval_scores.values())}")
         print(f"Median accuracy score: {median(eval_scores.values())}")
