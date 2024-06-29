@@ -1,4 +1,4 @@
-model: gemini-1.5-flash
+model: gemini-1.5-pro
 
 # text, format_instructions and relationships are automatically generated variables
 prompt: |
@@ -12,16 +12,16 @@ prompt: |
   If instead the text includes ""We find a strong inverse correlation p < .0001 between a country's per capita income and it's literacy rate" then the RelationshipClassification would be inverse.
   The SupportText field of your output should include verbaitum text related to the relation between the two variables without paraphrasing.
   The Reasoning field should be used to step by step reason from the text of the paper to try to come up with a good relationship classification and should focus on plainly stated results over implications.
-  The RelationshipClassification field can only be 'direct', 'inverse', 'not applicable', or 'independent'.
+  The RelationshipClassification field can only be 'direct', 'inverse', 'not applicable', or 'independent'. Use 'not applicable' if an ONLY if the text does not mention anything about the two variables.
   Direct means that an increase in one would cause a decrease in another, and inverse means that an increase in one would cause a decrease in another.
-  Independent means there is no clear relationship between the two variables. Not applicable means the text does not suggest anything about the relationship between the two variables. 
+  Independent means there is no clear relationship between the two variables. "not applicable" means the text does not suggest anything about the relationship between the two variables, and should be used sparsely, if at all.
   Use EXACT wording of outputs choices and input variable names, including combined variables. No values may be null. Instead, write "N/A". IsCausal must be "true" or "false".
 
   OUTPUT FORMATTING INSTRUCTIONS START
   {format_instructions}
   OUTPUT FORMATTING INSTRUCTIONS END
 
-  Below is the list of relationships that you should include in your output. Ensure all relationships are evaluated and reproduced with same capitalization and spelling!
+  Below is the list of {count} relationships that you should include in your output. Ensure all relationships are evaluated and reproduced with same capitalization and spelling and that there are exactly {count} relationships!
   {relationships}
   End of the list of relationships.
 
