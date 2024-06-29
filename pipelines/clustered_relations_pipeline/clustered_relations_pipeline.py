@@ -159,7 +159,7 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
   parser = PydanticOutputParser(pydantic_object=ListOfRelations)
   prompt_template = PromptTemplate(
                           template=prompt,
-                          input_variables=["text", "relationships"],
+                          input_variables=["text", "relationships", "count"],
                           partial_variables={"format_instructions":parser.get_format_instructions}
                           )
   
