@@ -2,11 +2,8 @@ import google.generativeai as genai
 import pandas as pd
 import json
 import yaml
-from langchain.pydantic_v1 import BaseModel, validator, Field
+from langchain.pydantic_v1 import BaseModel, validator
 from typing import List,Dict
-from sentence_transformers import SentenceTransformer
-from sentence_transformers.util import pytorch_cos_sim
-from sklearn.cluster import KMeans
 from langchain.prompts import PromptTemplate
 from langchain.output_parsers import PydanticOutputParser
 from google.api_core.exceptions import ResourceExhausted
@@ -14,6 +11,7 @@ from time import sleep
 from random import shuffle
 from statistics import mean, median, stdev
 from os import listdir, getenv
+from datetime import datetime
 
 key = getenv("GOOGLE_API_KEY")
 genai.configure(api_key=key)
@@ -67,8 +65,6 @@ safety_settings = [
     "threshold": "BLOCK_NONE"
   },
 ]
-
-embeddingModel = SentenceTransformer("all-mpnet-base-v2")
 
 #Define additional functions for pipeline
 
@@ -197,10 +193,10 @@ def call_pipeline(data_path, settings_path:str) -> Dict:
 
 if __name__ == "__main__":
   EVALUATE = True
-  RANDOMIZE = False
+  RANDOMIZE = True
   DEBUG = True
   NUM_TRIALS = 1
-  NUM_PAPERS = 10
+  NUM_PAPERS = 1
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}
@@ -235,7 +231,7 @@ if __name__ == "__main__":
       
     for _ in range(NUM_TRIALS):
         # Load data
-        source = [file for file in listdir("./pipeline_evaluator/full_dataset")]
+        source = [file for file in listdir("./pipeline_evaluator/full_dataset") if file != "A_Preliminary_Investigation_of_Cognitive_Flexibility.json"]
         if RANDOMIZE:
           shuffle(source)
         
@@ -267,6 +263,5 @@ if __name__ == "__main__":
       print(f"Average accuracy score: {mean(trial_scores)}")
       print(f"Median accuracy score: {median(trial_scores)}")
       print(f"Standard deviation: {stdev(trial_scores)}")
-        
-        
-        
+  with open(f"./pipeline_evaluator/results/results.txt", "a") as f:
+    f.write(f"{__file__.rpartition('/')[-1]}-{datetime.now().strftime('%d/%m/%Y-%H:%M:%S')} : {eval_scores}\n")
