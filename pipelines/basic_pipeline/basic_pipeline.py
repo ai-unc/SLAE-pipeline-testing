@@ -1,5 +1,4 @@
 import google.generativeai as genai
-import os
 import pandas as pd
 import json
 import yaml
@@ -14,8 +13,9 @@ from google.api_core.exceptions import ResourceExhausted
 from time import sleep
 from random import shuffle
 from statistics import mean, median, stdev
+from os import listdir, getenv
 
-key = os.getenv("GOOGLE_API_KEY")
+key = getenv("GOOGLE_API_KEY")
 genai.configure(api_key=key)
 
 
@@ -35,6 +35,11 @@ class SingleRelation(BaseModel):
 
 class ListOfRelations(BaseModel):
     Relations: list[SingleRelation]
+
+class RelationCountError(Exception):
+  def __init__(self, message):
+    self.message = message
+    super().__init__(self.message)
 
 # Model parameters
 generation_config = {
@@ -119,7 +124,6 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool
   data should already be cleaned
   """
   paper_text = data["PaperContents"]
-  data["PaperContents"] = ""  # Remove paper fulltext from output to avoid clogging telemetry
   
   # Summarize paper
   if verbose: print("Summarizing paper...")
@@ -143,7 +147,31 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool
   
   # Ensure content is in valid json format with parser.
   parsed_output = parser.parse(output.text)
-  return parsed_output.dict()
+  parsed_output = parsed_output.dict()
+  
+  # ensure only desired relations are present
+
+  final_output = {"Relations":data["Relations"]}
+  #set all relations to a default of not applicable
+  for relation in final_output["Relations"]:
+    relation["RelationshipClassification"] = "not applicable"
+  
+  # Create a dictionary for quick lookup of relations
+  parsed_relations_dict = {
+    (relation["VariableOneName"], relation["VariableTwoName"]): relation
+    for relation in parsed_output["Relations"]
+}
+
+  # Update the final_output based on the dictionary
+  for relation in final_output["Relations"]:
+    key = (relation["VariableOneName"], relation["VariableTwoName"])
+    if key in parsed_relations_dict:
+        parsed_relation = parsed_relations_dict[key]
+        relation["RelationshipClassification"] = parsed_relation["RelationshipClassification"]
+        relation["isCausal"] = parsed_relation["isCausal"]
+        relation["SupportingText"] = parsed_relation["SupportingText"]
+  
+  return final_output
 
 def call_pipeline(data_path, settings_path:str) -> Dict:
   with open(settings_path, "r") as f:
