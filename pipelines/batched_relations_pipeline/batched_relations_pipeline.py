@@ -263,5 +263,5 @@ if __name__ == "__main__":
       print(f"Average accuracy score: {mean(trial_scores)}")
       print(f"Median accuracy score: {median(trial_scores)}")
       print(f"Standard deviation: {stdev(trial_scores)}")
-  with open(f"./pipeline_evaluator/results/results.txt", "a") as f:
-    f.write(f"{__file__.rpartition('/')[-1]}-{datetime.now().strftime('%m/%d/%Y-%H:%M:%S')} : {eval_scores}\n")
+    with open(f"./pipeline_evaluator/results/results.txt", "a") as f:
+      f.write(f"{__file__.rpartition('/')[-1]}-{datetime.now().strftime('%m/%d/%Y-%H:%M:%S')} : {eval_scores}\n")
