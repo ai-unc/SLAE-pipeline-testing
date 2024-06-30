@@ -1,4 +1,4 @@
-model: gemini-1.5-pro
+model: gemini-1.5-flash
 
 # text, format_instructions and relationships are automatically generated variables
 prompt: |

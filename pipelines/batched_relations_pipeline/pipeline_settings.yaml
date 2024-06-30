@@ -14,7 +14,7 @@ prompt: |
   The Reasoning field should be used to step by step reason from the text of the paper to try to come up with a good relationship classification and should focus on plainly stated results over implications.
   The RelationshipClassification field can only be 'direct', 'inverse', 'not applicable', or 'independent'. Use 'not applicable' if an ONLY if the text does not mention anything about the two variables.
   Direct means that an increase in one would cause a decrease in another, and inverse means that an increase in one would cause a decrease in another.
-  Independent means there is no clear relationship between the two variables. "not applicable" means the text does not suggest anything about the relationship between the two variables, and should be used sparsely, if at all.
+  Independent means there is no clear relationship between the two variables. "not applicable" means the text does not suggest anything about the relationship between the two variables.
   Use EXACT wording of outputs choices and input variable names, including combined variables. No values may be null. Instead, write "N/A". IsCausal must be "true" or "false".
 
   OUTPUT FORMATTING INSTRUCTIONS START
@@ -27,4 +27,4 @@ prompt: |
 
   END PROMPT
 
-verbose: True
+debug: True
