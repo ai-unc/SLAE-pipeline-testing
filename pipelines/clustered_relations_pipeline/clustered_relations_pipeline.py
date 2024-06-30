@@ -14,6 +14,7 @@ from time import sleep
 from random import shuffle
 from statistics import mean, median, stdev
 from os import listdir, getenv
+from datetime import datetime
 
 key = getenv("GOOGLE_API_KEY")
 genai.configure(api_key=key)
@@ -128,27 +129,36 @@ def call_LLM(text, model:genai.GenerativeModel) -> str:
 def summarize(text:str, model:genai.GenerativeModel) -> str:
   """Used to summarize text during pre-processing"""
   prompt = \
-    """
-    Please provide a detailed summary of the above academic paper in the form of a detailed paragraph.
+    f"""
+    {text}
+    
+    Please provide a detailed summary of the above academic paper excerpts.
     Include a comprehensive overview of the main research question, methodology, key findings, and conclusions.
-    Emphasize the findings by detailing the data analysis methods used, significant results,
-    how these results address the research question, and any implications or recommendations made by the authors. 
+    Emphasize the findings by detailing the data analysis methods used,
+    significant results, how these results address the research question,
+    and any implications or recommendations made by the authors.
     Also, mention any limitations of the study acknowledged by the authors.
-    Conclude with the potential impact of this research in its respective field."""
-  return call_LLM(text + "\n\n\n" + prompt, model)
+    Conclude with the potential impact of this research in its respective field.
+    Write your response in the form of one or multiple paragraphs.
+    """
+  return call_LLM(prompt, model)
 
 def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=False) -> Dict:
   """
   data should already be cleaned
   This pipeline uses embedding similarity to match relations to summaries
   """
+  if debug: print(f"Model: {model.model_name}")
   paper_text = data["PaperContents"]
+  # remove references
+  # should probably be redone with a more robust method, maybe regex
+  paper_text = paper_text.rpartition("References")[0]
   
   # Extract relationships from the summarized text
   relationships:List[str] = extract_all_ordered_pairs(data)
   
   #Create clusters and summarize
-  CLUSTER_MULTIPLIER:float = 0.0 #The number of clusters is (num relationships * this number).
+  CLUSTER_MULTIPLIER:float = 3 #The number of clusters is (num relationships * this number).
   summaries = []
   clusters = cluster_text(paper_text, max(1, int(len(relationships)*CLUSTER_MULTIPLIER + 1))) # ensure at least one cluster
   paper_text = ""
@@ -164,6 +174,8 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
                           )
   
   summary_embeddings = embeddingModel.encode(summaries)
+  """OLD METHOD
+  
   relation_embeddings = embeddingModel.encode(relationships)
   
   # Allocate relations to their most relevant summary
@@ -180,6 +192,18 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
     output = call_LLM(input_text, model)
     output_jsons.append(output)
     if debug: print(f"Summary complete. Output:\n{output}")
+  """
+  BATCH_SIZE = 3
+  SUMMARIES_PER_BATCH = 10
+  output_jsons = []
+  for i in range(0, len(relationships), BATCH_SIZE):
+    relations = relationships[i:i+BATCH_SIZE]
+    relation_embeddings = embeddingModel.encode(relations)
+    similarities = pytorch_cos_sim(relation_embeddings, summary_embeddings)
+    indices = similarities.argsort()[-SUMMARIES_PER_BATCH:] # sorted ascending accuracy
+    input_text = prompt_template.format_prompt(text="\n".join([summaries[i] for i in indices]), relationships="\n".join(relations), count=len(relations)).to_string()
+    output = call_LLM(input_text, model)
+    output_jsons.append(output)
   
   if debug: print(f"Pipeline complete. Output:\n{output}")
   
@@ -230,10 +254,10 @@ def call_pipeline(data_path:str, settings_path:str) -> Dict:
 
 if __name__ == "__main__":
   EVALUATE = True
-  RANDOMIZE = True
+  RANDOMIZE = False
   DEBUG = True
   NUM_TRIALS = 1
-  NUM_PAPERS = 10
+  NUM_PAPERS = 5
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}
