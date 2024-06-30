@@ -115,21 +115,27 @@ def summarize(text:str, model:genai.GenerativeModel) -> str:
     and any implications or recommendations made by the authors.
     Also, mention any limitations of the study acknowledged by the authors.
     Conclude with the potential impact of this research in its respective field.
+    Write your response in the form of multiple paragraphs.
     """
   return call_LLM(prompt, model)
 
-def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool=False) -> Dict:
+def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=False) -> Dict:
   """
   data should already be cleaned
   """
   paper_text = data["PaperContents"]
   
+  # remove references
+  # should probably be redone with a more robust method, maybe regex
+  paper_text = paper_text.rpartition("References")[0]
+  if debug: print(f"Paper text:\n{paper_text}")
+  
   # Summarize paper
-  if verbose: print("Summarizing paper...")
+  if debug: print("Summarizing paper...")
   
   paper_text = summarize(paper_text, model)  
   
-  if verbose: print(f"Summarized text:\n{paper_text}")
+  if debug: print(f"Summarized text:\n{paper_text}")
     
   # Extract relationships from the summarized text
   relationships = extract_all_ordered_pairs(data)
@@ -146,15 +152,13 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool
     print(input_text)
     batch_output = call_LLM(input_text, model)
     parsed_batch_output = parser.parse(batch_output)
-    if verbose: print(f"Batch {i//BATCH_SIZE + 1} complete. Output:\n{parsed_batch_output.dict()}")
+    if debug: print(f"Batch {i//BATCH_SIZE + 1} complete. Output:\n{parsed_batch_output.dict()}")
     if "Relations" not in parsed_output:
       parsed_output["Relations"] = parsed_batch_output.dict()["Relations"]
     else:
       parsed_output["Relations"] += parsed_batch_output.dict()["Relations"]
   
-  if verbose: print(f"Pipeline complete. Output:\n{[r['RelationshipClassification'] for r in parsed_output['Relations']]}")
-  
-  # Ensure content is in valid json format with parser.
+  if debug: print(f"Pipeline complete. Output:\n{[r['RelationshipClassification'] for r in parsed_output['Relations']]}")
   
   # ensure only desired relations are present
 
@@ -183,20 +187,20 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, verbose:bool
 def call_pipeline(data_path, settings_path:str) -> Dict:
   with open(settings_path, "r") as f:
     pipeline_settings = yaml.safe_load(f)
-    verbose = pipeline_settings["verbose"]
+    debug = pipeline_settings["verbose"]
     prompt = pipeline_settings["prompt"]
     model = genai.GenerativeModel(model_name=pipeline_settings["model"],
                                   generation_config=generation_config,
                                   safety_settings=safety_settings)
   data = clean_data(data_path)
-  return pipeline(data, model, prompt, verbose=verbose) # Toggle here between pipeline_old and pipeline for different methods
+  return pipeline(data, model, prompt, debug=debug) # Toggle here between pipeline_old and pipeline for different methods
 
 if __name__ == "__main__":
   EVALUATE = True
   RANDOMIZE = True
   DEBUG = True
   NUM_TRIALS = 1
-  NUM_PAPERS = 1
+  NUM_PAPERS = 5
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}
