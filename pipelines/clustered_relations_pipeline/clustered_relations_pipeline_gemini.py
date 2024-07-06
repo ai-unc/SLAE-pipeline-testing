@@ -2,7 +2,6 @@ import google.generativeai as genai
 import pandas as pd
 import json
 import yaml
-import re
 from langchain.pydantic_v1 import BaseModel, validator, Field
 from typing import List,Dict
 from sentence_transformers import SentenceTransformer
@@ -22,13 +21,14 @@ genai.configure(api_key=key)
 
 
 class SingleRelation(BaseModel):
-    VariableOneName: str
-    VariableTwoName: str
-    SupportingText: str
-    isCausal: str
-    RelationshipClassification: str
+    independent_variable_name: str
+    dependent_variable_name: str
+    is_causal: str
+    attributes: str
+    supporting_text: str
+    relation_classification: str
     
-    @validator("RelationshipClassification")
+    @validator("relation_classification")
     def allowed_classifications(cls, field):
         if field.lower() in {"direct", "inverse", "not applicable", "independent"}:
             return field
@@ -36,7 +36,7 @@ class SingleRelation(BaseModel):
             raise ValueError(f"Invalid Relationship Type {{{field}}}")
 
 class ListOfRelations(BaseModel):
-  Relations: list[SingleRelation]
+  relations: list[SingleRelation]
 
 class RelationCountError(Exception):
   def __init__(self, message):
@@ -78,39 +78,32 @@ def clean_data(data_path:str) -> dict:
     """Reads Json and removes list of user predictions"""
     with open(data_path, "r") as f:
         data = json.load(f)
-    for relation in data['Relations']:
-        relation["RelationshipClassification"] = ""
-        relation["isCausal"] = ""
-        relation["SupportingText"] = ""
+    for relation in data['relations']:
+        relation["relation_classification"] = ""
+        relation["is_causal"] = ""
+        relation["supporting_text"] = ""
     return data  
 
 def extract_all_ordered_pairs(data:Dict) -> List[str]:
     #Extract the relationships
-    relationships = data.get("Relations", [])
+    relationships = data.get("relations", [])
     variable_pairs = []
     # Iterate through each relationship and extract variables
     for relationship in relationships:
-        variable_one = relationship.get("VariableOneName", "")
-        variable_two = relationship.get("VariableTwoName", "")
+        variable_one = relationship.get("independent_variable_name", "")
+        variable_two = relationship.get("dependent_variable_name", "")
         variable_pairs.append(variable_one + " -> " + variable_two)
     return variable_pairs
   
 def segment_text(text: str) -> List[str]:
     """
-    Segments the given text into sections each containing approximately three sentences.
-    Sentences are detected based on periods, exclamation marks, or question marks followed by spaces.
+    Segments the given text into sections each containing one paragraph, separated by double newlines.
     """
-    sentences = re.split(r'[.!?]\s+', text)
-    segments = []
-    current_segment = []
-    for sentence in sentences:
-        current_segment.append(sentence)
-        if len(current_segment) == 3:  # Segment after every 3 sentences
-            segments.append(' '.join(current_segment))
-            current_segment = []
-    if current_segment:  # Add the remaining sentences as a segment
-        segments.append(' '.join(current_segment))
-    return segments
+    paragraphs = text.split('\n\n')
+    print(f"PARAGRAPHS: {len(paragraphs)}")
+    #remove empty segments
+    paragraphs = [paragraph.replace("\n", " ") for paragraph in paragraphs if paragraph.strip() != "" and len(paragraph) >= 20]
+    return paragraphs
 
 def cluster_text(text:str, num_clusters:int) -> List[str]:
   """
@@ -119,7 +112,9 @@ def cluster_text(text:str, num_clusters:int) -> List[str]:
   print("Clustering text...")
   #split text into multiple sentence segments
   segments = segment_text(text)
-  print(segments)
+  for segment in segments:
+    print("--------------------------------")
+    print(segment)
   # segments = [seg for seg in segments if seg.strip() != "" and len(seg) >= 10] #remove empty segments
   if len(segments) == 1: return segments  #return if only one paragraph
   
@@ -141,6 +136,8 @@ def cluster_text(text:str, num_clusters:int) -> List[str]:
 
 def call_LLM(text, model:genai.GenerativeModel) -> str:
   """Used to call a Google LLM model with ResourceExhausted handling"""
+  print("-------------------------------------PROMPT-------------------------------------")
+  print(text)
   try:
     result = model.generate_content(text)
     return result.text
@@ -176,16 +173,13 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
   This pipeline uses embedding similarity to match relations to summaries
   """
   if debug: print(f"Model: {model.model_name}")
-  paper_text = data["PaperContents"]
-  # remove references
-  # should probably be redone with a more robust method, maybe regex
-  paper_text = paper_text.rpartition("References")[0]
+  paper_text = data["content"]
   
   # Extract relationships from the summarized text
   relationships:List[str] = extract_all_ordered_pairs(data)
   
   #Create clusters and summarize
-  CLUSTER_MULTIPLIER:float = 1 #The number of clusters is (num relationships * this number).
+  CLUSTER_MULTIPLIER:float = 3 #The number of clusters is (num relationships * this number).
   summaries = []
   clusters = cluster_text(paper_text, max(1, int(len(relationships)*CLUSTER_MULTIPLIER + 1))) # ensure at least one cluster
   print(len(clusters))
@@ -195,7 +189,7 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
     summary = summarize(cluster, model)
     summaries.append(summary)
   """
-  summaries = [c for c in clusters]
+  summaries = [cluster for cluster in clusters]
     
   parser = PydanticOutputParser(pydantic_object=ListOfRelations)
   prompt_template = PromptTemplate(
@@ -224,7 +218,7 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
     output_jsons.append(output)
     if debug: print(f"Summary complete. Output:\n{output}")
   """
-  BATCH_SIZE = 2
+  BATCH_SIZE = 5
   SUMMARIES_PER_BATCH = 5
   output_jsons = []
   for i in range(0, len(relationships), BATCH_SIZE):
@@ -242,42 +236,43 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
     if debug:
       print("Indices:")
       print(indices)
-    input_text = prompt_template.format_prompt(text="\n".join([summaries[i] for i in indices]), relationships="\n".join(relations), count=len(relations)).to_string()
+    summary = summarize("\n".join([summaries[i] for i in indices]), model)
+    input_text = prompt_template.format_prompt(text=summary, relationships="\n".join(relations), count=len(relations)).to_string()
     output = call_LLM(input_text, model)
     output_jsons.append(output)
   
   if debug: print(f"Pipeline complete. Output:\n{output}")
   
   #ensure correct formatting and merge all outputs
-  parsed_output = {"Relations":[]}
+  parsed_output = {"relations":[]}
   for output_json in output_jsons:
     parsed_json = parser.parse(output_json).dict()
-    for relation in parsed_json["Relations"]:
-      if relation not in parsed_output["Relations"]:
-        parsed_output["Relations"].append(relation)
+    for relation in parsed_json["relations"]:
+      if relation not in parsed_output["relations"]:
+        parsed_output["relations"].append(relation)
   
   if debug: print(f"Parsed output:\n{parsed_output}")
   # ensure only desired relations are present
 
-  final_output = {"Relations":data["Relations"]}
+  final_output = {"relations":data["relations"]}
   #set all relations to a default of not applicable
-  for relation in final_output["Relations"]:
-    relation["RelationshipClassification"] = "not applicable"
+  for relation in final_output["relations"]:
+    relation["relation_classification"] = "not applicable"
   
   # Create a dictionary for quick lookup of relations
   parsed_relations_dict = {
-    (relation["VariableOneName"], relation["VariableTwoName"]): relation
-    for relation in parsed_output["Relations"]
+    (relation["independent_variable_name"], relation["dependent_variable_name"]): relation
+    for relation in parsed_output["relations"]
 }
 
   # Update the final_output based on the dictionary
-  for relation in final_output["Relations"]:
-    key = (relation["VariableOneName"], relation["VariableTwoName"])
+  for relation in final_output["relations"]:
+    key = (relation["independent_variable_name"], relation["dependent_variable_name"])
     if key in parsed_relations_dict:
         parsed_relation = parsed_relations_dict[key]
-        relation["RelationshipClassification"] = parsed_relation["RelationshipClassification"]
-        relation["isCausal"] = parsed_relation["isCausal"]
-        relation["SupportingText"] = parsed_relation["SupportingText"]
+        relation["relation_classification"] = parsed_relation["relation_classification"]
+        relation["is_causal"] = parsed_relation["is_causal"]
+        relation["supporting_text"] = parsed_relation["supporting_text"]
   
   return final_output
 
@@ -306,25 +301,25 @@ if __name__ == "__main__":
       ground_truth = solution[i]
       if DEBUG:
         print("\n\n\nGUESS:")
-        print(*[r["RelationshipClassification"] for r in paper["Relations"]], sep="\n")
+        print(*[r["relation_classification"] for r in paper["relations"]], sep="\n")
         print("\n\n\nGROUND TRUTH:")
-        print(*[r["RelationshipClassification"] for r in ground_truth["Relations"]], sep="\n")
+        print(*[r["relation_classification"] for r in ground_truth["relations"]], sep="\n")
         
-      if "Relations" not in paper or "Relations" not in ground_truth:
-        raise Exception("Key error: Relations.")
-      if len(paper["Relations"]) != len(ground_truth["Relations"]):
+      if "relations" not in paper or "relations" not in ground_truth:
+        raise Exception("Key error: relations.")
+      if len(paper["relations"]) != len(ground_truth["relations"]):
         print("\n\n\nGUESS:")
         print(*extract_all_ordered_pairs(paper), sep="\n")
         print("\n\n\nGROUND TRUTH:")
         print(*extract_all_ordered_pairs(ground_truth), sep="\n")
-        raise RelationCountError(f"Prediction has {len(paper['Relations'])} relations and ground truth has {len(ground_truth['Relations'])}.")
+        raise RelationCountError(f"Prediction has {len(paper['relations'])} relations and ground truth has {len(ground_truth['relations'])}.")
       
       score = 0
-      for j, prediction in enumerate(paper["Relations"]):
-        relation = ground_truth["Relations"][j]
-        score += 1 if relation["RelationshipClassification"].lower().strip() == prediction["RelationshipClassification"].lower().strip() else 0
-      paper_score = (score / len(ground_truth["Relations"])) * 100
-      scores[ground_truth["PaperTitle"]] = paper_score
+      for j, prediction in enumerate(paper["relations"]):
+        relation = ground_truth["relations"][j]
+        score += 1 if relation["relation_classification"].lower().strip() == prediction["relation_classification"].lower().strip() else 0
+      paper_score = (score / len(ground_truth["relations"])) * 100
+      scores[ground_truth["title"]] = paper_score
     
     return scores
   
