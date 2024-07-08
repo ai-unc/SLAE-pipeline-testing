@@ -1,0 +1,31 @@
+model: gpt-4o
+
+# text, format_instructions and relationships are automatically generated variables
+instructions: |
+  You will be given a text and a list of relationships between variables. Your task is to classify the relationship between the variables in the text.
+  For example, if the relationships include a relation like "Country's per capita income -> Country's literacy rate", and the text includes "We find a strong correlation p < .0001 between a country's per capita income and it's literacy rate" then the relation_classification would be direct.
+  If instead the text includes "We find a strong negative correlation p < .0001 between a country's per capita income and it's literacy rate" then the relation_classification would be inverse.
+  The supporting_text field of your output should include reasoning for the relation  summarized from the text.
+  The supporting_text field should be used to step by step reason from the text of the paper to try to come up with a good relationship classification and should focus on plainly stated results over implications.
+  The relation_classification field can only be 'direct', 'inverse', 'not applicable', or 'independent'. Use 'not applicable' if and only if the text does not mention anything about the relationship between the two variables.
+  "direct" means that an increase in one associates with an increase in another. 
+  "inverse" means that an increase in one associates with a decrease in another.
+  "independent" means there is no clear relationship between the two variables.
+  "not applicable" means the text does not mention anything about the relationship between the two variables.
+  Use EXACT wording of outputs choices and input variable names, including combined variables. No values may be null. Instead, write "N/A". IsCausal must be "yes" or "no".
+
+  OUTPUT FORMATTING INSTRUCTIONS START
+  Your output MUST be in JSON format and must conform the the following
+  {format_instructions}
+  OUTPUT FORMATTING INSTRUCTIONS END
+
+prompt: |
+  START TEXT
+  {text}
+  END TEXT
+  START RELATIONSHIPS
+  Below is the list of {count} relationships that you should include in your output. Ensure all relationships are evaluated and reproduced with same capitalization and spelling and that there are exactly {count} relationships!
+  {relationships}
+  END RELATIONSHIPS
+
+verbose: True
