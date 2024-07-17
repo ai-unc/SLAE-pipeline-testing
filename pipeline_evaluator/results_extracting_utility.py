@@ -45,6 +45,9 @@ def main(paper_testfile_path):
         + build_search_strings("references")
         + build_search_strings("acknowledgements")
         + build_search_strings("acknowledgement")
+        + build_search_strings("contributions")
+        + build_search_strings("works cited")
+        + build_search_strings("literature cited")
     )
     for search_string in last_index_search_strings:
         temp = content_lowercase[index:].rfind(search_string)
@@ -54,15 +57,16 @@ def main(paper_testfile_path):
     if last_index < len(content_lowercase):
         last_index += index
 
-    result = content_lowercase[index:last_index]
-    if len(result) < 1:
-        print(f"\033[91m{data["title"]}\033[0;0m: result empty")
-    elif len(result) < 150:
-        print(f"\033[91m{data["title"]}\033[0;0m: result too short \033[93m({len(result)})\033[0;0m")
+    output = content_lowercase[index:last_index]
+    if len(output) < 1:
+        print(f"\033[91m{data["title"]}\033[0;0m: output empty")
+    elif len(output) < 150:
+        print(f"\033[91m{data["title"]}\033[0;0m: output too short \033[93m({len(output)})\033[0;0m")
+        print(output)
     else:
         print(f"\033[32m{data["title"]}\033[0;0m")
-        print(f"Index: {index}, Last Index: {index}")
-        print(f"Result Length: {len(result)}")
+        print(f"Index: {index}, Last Index: {last_index}")
+        print(f"Output Length: {len(output)}")
     print("\n")
     return
 
