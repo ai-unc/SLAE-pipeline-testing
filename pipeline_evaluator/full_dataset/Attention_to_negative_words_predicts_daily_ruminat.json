@@ -1,231 +1,287 @@
 {
-	"doi": "10.1080/02699931.2018.1541168",
-	"title": "Attention to negative words predicts daily rumination among people with clinical depression: evidencevidence from an eye tracking and daily diary study",
-	"relations": [
-		{
-			"independent_variable_name": "positive attentional bias",
-			"dependent_variable_name": "worry",
-			"relation_classification": "inverse",
-			"is_causal": "yes",
-			"attributes": "Positive attentional bias measured through eye tracking - bias towards looking at positive words when shown on screen alongside negative and neutral words.",
-			"supporting_text": "Attention to positive words was negatively related to worry, whereas anxiety was positively correlated with worry."
-		},
-		{
-			"independent_variable_name": "anxiety",
-			"dependent_variable_name": "worry",
-			"relation_classification": "inverse",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "Attention to positive words was negatively related to worry, whereas anxiety was positively correlated with worry."
-		},
-		{
-			"independent_variable_name": "negative attentional bias",
-			"dependent_variable_name": "depression",
-			"relation_classification": "direct",
-			"is_causal": "yes",
-			"attributes": "negative attentional bias measured through eye tracking - bias towards looking at negative or \"dysphoric\" words when shown on screen alongside positive and neutral words.",
-			"supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression"
-		},
-		{
-			"independent_variable_name": "neutral attentional bias",
-			"dependent_variable_name": "worry",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "attentional bias measured through eye tracking - bias towards looking at a certain category of words when shown on screen with neutral, threat-related, dysphoric, and positive words. ",
-			"supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression"
-		},
-		{
-			"independent_variable_name": "neutral attentional bias",
-			"dependent_variable_name": "anxiety",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "attentional bias measured through eye tracking - bias towards looking at a certain category of words when shown on screen with neutral, threat-related, dysphoric, and positive words. ",
-			"supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression"
-		},
-		{
-			"independent_variable_name": "neutral attentional bias",
-			"dependent_variable_name": "depression",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "attentional bias measured through eye tracking - bias towards looking at a certain category of words when shown on screen with neutral, threat-related, dysphoric, and positive words. ",
-			"supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression"
-		},
-		{
-			"independent_variable_name": "negative attention bias",
-			"dependent_variable_name": "neutral attention bias",
-			"relation_classification": "positive",
-			"is_causal": "yes",
-			"attributes": "attention biases for negative (dysphoric + threat related) and neutral words are all positively correlated with one another. ",
-			"supporting_text": "There were significant positive correlations between attention to threat-related, dysphoric, and neutral words."
-		},
-		{
-			"independent_variable_name": "depression",
-			"dependent_variable_name": "worry",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
-			"supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1."
-		},
-		{
-			"independent_variable_name": "depression",
-			"dependent_variable_name": "anxiety",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
-			"supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1."
-		},
-		{
-			"independent_variable_name": "depression",
-			"dependent_variable_name": "negative attentional bias",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
-			"supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1."
-		},
-		{
-			"independent_variable_name": "depression",
-			"dependent_variable_name": "positive attentional bias",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
-			"supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1."
-		},
-		{
-			"independent_variable_name": "depression",
-			"dependent_variable_name": "neutral attention bias",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
-			"supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1."
-		},
-		{
-			"independent_variable_name": "negative attentional bias",
-			"dependent_variable_name": "rumination",
-			"relation_classification": "direct",
-			"is_causal": "yes",
-			"attributes": "NA",
-			"supporting_text": "As expected, we found significant relationships between dwell time on negative words and daily rumination and adjustment."
-		},
-		{
-			"independent_variable_name": "negative attentional bias",
-			"dependent_variable_name": "adjustment",
-			"relation_classification": "inverse",
-			"is_causal": "yes",
-			"attributes": "relationship is not significant if adjusted for worry and both types of negative attention bias (dysphoric + threat-related)",
-			"supporting_text": "Daily rumination was positively related to dwell time on dysphoric words (γ01 = .36, t = 3.23, p < .01) and to dwell time on threat-related words (γ01= .63, t = 3.96, p < .001), and daily adjustment was negatively related to dwell time on threat-related words (γ01 = −.21, t = 2.53, p < .02)"
-		},
-		{
-			"independent_variable_name": "positive attentional bias",
-			"dependent_variable_name": "rumination",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "In contrast, we found no significant relationships between attention to positive words and daily rumination or adjustment."
-		},
-		{
-			"independent_variable_name": "positive attentional bias",
-			"dependent_variable_name": "adjustment",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "In contrast, we found no significant relationships between attention to positive words and daily rumination or adjustment."
-		},
-		{
-			"independent_variable_name": "rumination",
-			"dependent_variable_name": "depression symptoms",
-			"relation_classification": "direct",
-			"is_causal": "yes",
-			"attributes": "NA",
-			"supporting_text": "Daily rumination was positively related to CES-D scores (γ01 = .24, t = 2.14, p < .04) and daily adjustment was negatively related to PSWQ scores (γ01 = −.20, t = 2.31, p < .03)"
-		},
-		{
-			"independent_variable_name": "adjustment",
-			"dependent_variable_name": "worrying",
-			"relation_classification": "inverse",
-			"is_causal": "yes",
-			"attributes": "NA",
-			"supporting_text": "Daily rumination was positively related to CES-D scores (γ01 = .24, t = 2.14, p < .04) and daily adjustment was negatively related to PSWQ scores (γ01 = −.20, t = 2.31, p < .03)"
-		},
-		{
-			"independent_variable_name": "positive attentional bias",
-			"dependent_variable_name": "rumination",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (γ01 = .64, t = 2.97, p<0.1)."
-		},
-		{
-			"independent_variable_name": "neutral attentional bias",
-			"dependent_variable_name": "rumination",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (γ01 = .64, t = 2.97, p<0.1)."
-		},
-		{
-			"independent_variable_name": "anxiety",
-			"dependent_variable_name": "rumination",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (γ01 = .64, t = 2.97, p<0.1)."
-		},
-		{
-			"independent_variable_name": "worry",
-			"dependent_variable_name": "rumination",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (γ01 = .64, t = 2.97, p<0.1)."
-		},
-		{
-			"independent_variable_name": "adjustment",
-			"dependent_variable_name": "positive attentional bias",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (γ01 = −.17, t = 1.76, p = .087; γ01 = −.18, t = 1.96, p = .057, respectively)."
-		},
-		{
-			"independent_variable_name": "adjustment",
-			"dependent_variable_name": "neutral attentional bias",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (γ01 = −.17, t = 1.76, p = .087; γ01 = −.18, t = 1.96, p = .057, respectively)."
-		},
-		{
-			"independent_variable_name": "adjustment",
-			"dependent_variable_name": "anxiety symptoms",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (γ01 = −.17, t = 1.76, p = .087; γ01 = −.18, t = 1.96, p = .057, respectively)."
-		},
-		{
-			"independent_variable_name": "adjustment",
-			"dependent_variable_name": "depression symptoms",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (γ01 = −.17, t = 1.76, p = .087; γ01 = −.18, t = 1.96, p = .057, respectively)."
-		},
-		{
-			"independent_variable_name": "rumination",
-			"dependent_variable_name": "adjustment",
-			"relation_classification": "inverse",
-			"is_causal": "no",
-			"attributes": "not moderated by anxiety, worry, or depression.",
-			"supporting_text": "We examined within-person relationships between daily rumination and daily adjustment by including daily adjustment as a level 1 predictor of rumination, and we found a significant negative relationship (γ10 = −.32, t = 2.88, p < .01)."
-		},
-		{
-			"independent_variable_name": "adjustment",
-			"dependent_variable_name": "worrying",
-			"relation_classification": "independent",
-			"is_causal": "no",
-			"attributes": "NA",
-			"supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (γ01 = −.17, t = 1.76, p = .087; γ01 = −.18, t = 1.96, p = .057, respectively)."
-		}
-	],
-	"content": "Cognition and Emotion\n\nISSN: 0269-9931 (Print) 1464-0600 (Online) Journal homepage: https://www.tandfonline.com/loi/pcem20\n\nAttention to negative words predicts daily\nrumination among people with clinical depression:\nevidence from an eye tracking and daily diary\nstudy\n\nPawet Holas, Izabela Krejtz, Marzena Rusanowska, Natalia Rohnka & John B.\nNezlek\n\nTo cite this article: Pawet Holas, Izabela Krejtz, Marzena Rusanowska, Natalia Rohnka & John B.\nNezlek (2019) Attention to negative words predicts daily rumination among people with clinical\ndepression: evidence from an eye tracking and daily diary study, Cognition and Emotion, 33:6,\n1277-1283, DOI: 10.1080/02699931.2018.1541168\n\nTo link to this article: https://doi.org/10.1080/02699931.2018.1541168\n\ni333] Published online: 31 Oct 2018.\n\nN\n@ Submit your article to this journal 7\n\nhil Article views: 884\n\n»\na] View related articles (Z'\n\n® View Crossmark data\n\n[al Citing articles: 5 View citing articles (2\n\nFull Terms & Conditions of access and use can be found at\nhttps://www.tandfonline.com/action/journalinformation?journalCode=pcem20\n\nH\n\nR\n\nRoutledge\n\nTaylor & Francis Group\n\n\nCOGNITION AND EMOTION\n2019, VOL. 33, NO. 6, 1277-1283\nhttps://doi.org/10.1080/02699931.2018.1541168\n\nTaylor & Francis Group\n\n; Routledge\n\nBRIEF ARTICLE\n\nAtten\n\n®) Crock for pdaies\n\nn to negative words predicts daily rumination among people\n\nwith clinical depression: evidence from an eye tracking and daily diary\n\nstudy\n\nPawel Holas?, Izabela Krejtz°, Marzena Rusanowska, Natalia Rohnka® and John B. Nezlek®*®\n\n“Faculty of Psychology, University of Warsaw, Warsaw, Poland; “Psychology Department, SWPS University of Social Sciences and\nHumanities, Warsaw, Poland; institute of Psychology, Polish Academy of Sciences, Warsaw, Poland; “Department of Psychology,\nSWPS University of Social Sciences and Humanities, Pozna, Poland; “Department of Psychology, College of William & Mary,\n\nWilliamsburg, VA, USA\n\nABSTRACT\n\nThe present study examined relationships between attention to negative words and\ndaily rumination and daily adjustment in a sample of clinically depressed\nindividuals. We recorded eye movements of 43 individuals diagnosed with major\ndepression while they were freely viewing dysphoric, threat-related, neutral, and\npositive words. Then, each day for one week, participants provided measures of\ntheir daily rumination and psychological adjustment. Multilevel analyses found that\n\nARTICLE HISTORY\nReceived 13 February 2018\nRevised 17 October 2018\n\nAccepted 18 October 2018\n\nKEYWORDS\nRumination; attentional bias;\neye movements; diary study\n\nattention to dysphoric and threat-related words was positively related to daily\nrumination and attention to threat-related words was negatively related to daily\nadjustment. These findings suggest that the impaired ability to disengage from\nnegative words is positively related to rumination in daily life and is negatively\nrelated to well-being, as defined in terms of Beck's Triad.\n\nCognitive theories of depression posit that persistent\nnegative cognitions and cognitive biases, such as\nattentional bias to negative information, lead to the\ndevelopment and maintenance of depression (e.g.\nBeck, Rush, Shaw, & Emery, 1979). Negative cognitions,\ncharacterized by repetitive, recurrent, intrusive, and\nuncontrollable thoughts, have been broadly defined\nas rumination (Brinker & Dozois, 2009). Moreover,\nattentional biases and rumination play key roles in\nthe NIMH Research Domain Criteria (RDoC) of Negative\nValence Systems construct of Loss (NIMH, 2008).\nAlthough research has found that depression is\nrelated to attentional biases (e.g. Armstrong & Olatunji,\n2012) and increased ruminative thinking (e.g. Aldao,\nNolen-Hoeksema, & Schwiezer, 2010), only a few\nstudies have examined direct relationships between\nattentional biases and ruminative style in depression.\n\nIn a study of a clinically depressed sample, Donald-\nson, Lam, and Mathews (2007) found a positive\nrelationship between trait rumination and attentional\nbiases to depression-related information using a dot-\n\nprobe task. Similarly, Joormann, Dkane, and Gotlib\n(2006) reported that rumination was associated with\nincreased attention to sad faces in currently depressed\nadults.\" Sustained visual processing of negative faces\nwas found to be associated with a stronger ruminative\nstyle in dysphoric and non-dysphoric students (Duque,\nSanchez, & Vazquez, 2014). Consistent with this, Owens\nand Gibb (2017) found that rumination was positively\nrelated to attention to sad faces and was negatively\nrelated to happy faces in non-depressed individuals.\n\nNevertheless, to our knowledge, no study has\nexamined relationships between attention to negative\nwords and daily rumination in clinically depressed\nindividuals. Moreover, to our knowledge, no study\nhas used eye-tracking to examine relationships\nbetween attentional biases and rumination among\nthose with clinical depression. The present study\nexamined relationships between attention to\nemotional words and daily reports of rumination and\npsychological adjustment among the clinically\ndepressed.\n\nCONTACT Pawel Holas ) pawel holas@psych.uw.edu.pl\n© 2018 Informa UK Limited, trading as Taylor & Francis Group.\n\n\n1278 (&) P.HOLASETAL\n\nAttentional biases in depression\n\nAlthough a recent meta-analysis questioned the\nassociation between attentional bias and depressive\nsymptoms (Marchetti et al., 2018), the bulk of research\nhas found that attentional biases in depression consist\nof greater maintenance of gaze on negative infor-\nmation and a lack of the positive attentional bias\nthat is typically reported in healthy people in eye-\ntracking studies (Armstrong & Olatunji, 2012). Biased\nattention to emotional stimuli affects the course of\ndepression by elevating the rate of incoming negative\nemotional information and decreasing the rate of\nincoming positive information, which leads to more\npersistent sad moods (Joormann & Arditte, 2013). Con-\nsistent with this, in a study of depressed individuals,\nDisner, Shumake, and Beevers (2017) found that atten-\ntion to negative words was positively related to\nincreases over time in depressive symptoms, and\nDonaldson et al. (2007) found that attentional bias\nfor negative words was positively related to trait\nrumination.\n\nImpaired disengagement hypothesis of\nrumination\n\nThe impaired disengagement hypothesis of rumina-\ntion posits that the positive relationship between the\namount of time spent processing negative self-refer-\nential material and levels of rumination is due to\nimpaired attentional disengagement (Koster, De Liss-\nnyder, Derakshan, & De Raedt, 2011), and as discussed\nby Koster et al. (2011), several studies have found that\nrumination is related to impairments and valence-\nspecific biases in attentional control. A lack of inhibi-\ntory control over negative information prevents indi-\nviduals from implementing emotion regulation\nstrategies that may be more adaptive than rumination,\nsuch as redirection of attention or positive reappraisal\n(Joormann & D'Avanzato, 2010) and leads to increases\nin the amount of negative information entering\nworking memory (Koster et al, 2011). Consistent\nwith this, Southworth, Grafton, Macleod, and\nWatkins (2017) found that rumination was positively\nrelated to difficulty in disengaging attention from\nnegative to positive words.\n\nIssues in measuring rumination\n\nStudies of relationships between rumination and\nattentional processes have used single-assessment\n\nmeasures of dispositional rumination such as the\nRuminative Responses Scale (RRS) (Treynor, Gonza-\nlez, & Nolen-Hoeksema, 2003). Respondents indicate\nhow they are on average or usually, often without\nreferring to specific temporal or situational circum-\nstances. As discussed by Nezlek (2012), measuring\nindividual differences using single-assessments has\nimportant limitations. Single assessments may\nreflect more recent or more important states than\nmore temporally distant or less important states,\ne.g. a negative event from the past week influences\nresponses more than the positive events from the\nweek. Also, the temporal frame of questions is\noften not specified, and individual differences in\nhow people interpret “generally” or “typically” can\ninfluence responses. To overcome some of these\nlimitations, in the present study we measured rumi-\nnation on a daily basis using a measure that focused\non the present day.\n\nThe present study\n\nDespite the results of previous studies, the role of\nvisual processing of negative stimuli in maintenance\nof depression needs to be clarified. Although several\nstudies have found positive relationships between\nrumination and impaired executive control, few\nstudies have examined the impaired attentional disen-\ngagement hypothesis using methods that can dis-\ntinguish engagement and disengagement biases\n(Southworth et al, 2017) or that included continuous\nmeasures of eye behaviour (Owens & Gibb, 2017).\nThe present study examined relationships between\nattention to negative words and daily rumination\nand daily psychological adjustment in depressed indi-\nviduals. We assumed that attention to negative words\nwould be related to a depressogenic thinking style/\nprocess, rumination, and would be related to depres-\nsogenic thought content, a measure of adjustment\nbased on Beck's cognitive triad.\n\nWe measured attention to negative words using\neye-tracking. This provided a direct measure of atten-\ntion which we believe is an improvement over\nmethods that evaluate the allocation of attention\nindirectly from response latencies to probes.\nDifficulty in disengaging attention from negative\nstimuli should be manifested by longer attention\n(dwell time) to negative stimuli. We hypothesized\nthat dwell time on negative words would be positively\nrelated to daily rumination and negatively related to\ndaily adjustment.\n\n\nMethod\nParticipants\n\nParticipants were recruited via an open call posted on\ninternet portals. The call invited volunteers to participate\nin a study about how people feel and how they process\ninformation in their daily lives. Initially, 221 people\nresponded to this call, and of these, 199 completed an\nonline version of the CES-D (Radloff, 1977). Individuals\nwho had CES-D scores of greater than 20 (N =73) were\ninvited for an individual interview during which the\nMini-International Neuropsychiatric Interview (V. 5.0.0;\nSheehan et al, 1998) was administered by a trained clin-\nician. To be eligible for the study, individuals had to be\ndiagnosed as currently experiencing a major depression\ndisorder episode. Individuals were excluded if they had\nbipolar disorder, substance abuse, a current or lifetime\npsychotic disorder or current suicidal tendencies. Ten\nparticipants dropped out from the study after beginning\nthe study. Due to technical problems with recording eye\nmovements (e.g. poor calibration) or compliance with\ninstructions the final sample consisted of 43 participants\n(F=29, Mage = 34.42, SD = 12.71). Thirty-two participants\n(74%) had a comorbid diagnosis, 27 of whom were diag-\nnosed with an accompanying anxiety disorder. Partici-\npants were paid approximately 30USD.\n\nProcedure\n\nFirst, participants came the laboratory and completed\nthe eye-tracking task and three questionnaires. They\nthen maintained an online diary for at least 7 consecu-\ntive days.\n\nThe research protocol was approved by the IRB of\nthe authors’ institution. All participants provided\nwritten informed consent.\n\nSelf-report measures\n\nParticipants completed three measures: the Center\nfor Epidemiologic Studies Depression Scale (CES-D:\n\nTable 1. Correlations and descriptive statistics for level 2 variables.\n\nCOGNITION AND EMOTION (&) 1279\n\nRadloff, 1977), the trait subscale of the State-Trait\nAnxiety Inventory (STAI: Spielberger, 1989), and the\nPenn State Worry Questionnaire (PSWQ: Meyer,\nMiller, Metzger, & Borkovec, 1990). Descriptive stat-\nistics for these measures are presented in Table 1.\n\nEye tracking measures\n\nFour words task\n\nFollowing the procedure used by Ellis, Beevers, and\nWells (2011), we presented 12 slides with 4 words on\neach, and participants were asked to read the words.\nWords were selected from the Affective Norms for\nEnglish Words (ANEW, Bradley & Lang, 1999). There\nwere four categories of words: dysphoric (e.g. gloom,\nsad), threat-related (e.g. killer, angry), neutral (e.g.\nankle, sphere), and positive (e.g. home, sun). Each\nslide was presented for 10 sec and contained one\nword from each category. Words presented on the\nsame slide were matched for length, and the order\nof slides was randomized. At the beginning of each\ntrial a fixation cross appeared in the middle of the\nscreen for 1000 ms.\n\nApparatus\nThe stimuli were presented on a 22’ diameter monitor\nat a viewing distance of 70 cm. Participants’ eye move-\nments were recorded with a SMI RED eye-tracker, with\na sampling rate of 120 Hz and a 9-point calibration\nbefore the task. Measurements were made in a room\nwith no windows and constant ambient light. SMI's\nstandard BeGaze dispersion-based algorithm was\nused for detecting fixations and saccades. The\nminimal fixation duration was set to 80 ms.\nRectangular areas of interest were drawn around\neach word, and we calculated the total time spent\nfixating on the target stimuli (dwell time). One partici-\npant had an extreme value (+ 35D) of dwell time on\npositive words. We conducted the analyses with and\nwithout this case, and the results were similar, so we\nreport the results with all cases included.\n\nMean (sD) 1 2 3 4 5 6 7\n1 Depression (CESD) 3863 (7.09) -\n2 Wony (PSWQ) 60.86 (9.73) 3 -\n3 Anxiety (STAT) 54381 (5.50) 0% Za -\nAttention (ms) to\n4 Threatrelated words 1674.96 (551.47) 19 17 09 -\n5 Dysphoric words 1762.31 (641.58) 8 7 13 a3 61% -\n6 Neutral words 1635.54 (420.30) 06 11 ~01 78 60m -\n7 Positive words 1917.72 (81088) -16 -35% 27% -m -05 07 -\n\nNote: % ©”: %8 statistical tendency, *p <.05, ***p <.001.\n\n\n1280 (©) P.HOLASETAL\n\nOne-week online diary\n\nAt the end of each day for a week participants used a\nsecure online platform to answer a series of questions\nabout their daily rumination and adjustment. Daily\nrumination was measured using three items from the\nRumination-Reflection Questionnaire (Trapnell & Camp-\nbell, 1999) that were reworded for daily administration.\nParticipants answered the following questions: How\nmuch today did you “ruminate” or dwell on things\nthat happened to you? How much today did you play\nback over in your mind how you acted in a past situ-\nation? How much time today did you spend rethinking\nthings that are over and done with? Daily adjustment\nwas measured with three items based on Beck et al.'s\n(1979) cognitive triad: Thinking about today in\ngeneral how positive were your thoughts about your-\nself? How well did things go today? Today, how opti-\nmistic are you about how your life (in general) will be\ntomorrow? Participants answered using 1-7 scales,\nscored so that higher numbers indicated more rumina-\ntion and better adjustment during the day.\n\nCompliance with instructions\n\nBefore analysing the data, we inspected the time of\nparticipants’ entries. Valid entries were defined as\nthose provided after 6 pm of the day in question\nand no later than 6 am of the following day. Following\nthis procedure, we analysed 251 days, and participants\nprovided on average 6.0 days of diary data.\n\nResults\n\nThe data were conceptualized as a two level structure\nin which days were nested within individuals. We ana-\nlysed the data using multilevel models using the pro-\ngramme HLM following guidelines described by\nNezlek (2012). Before the primary analyses, the\nreliability of our measures was examined using three\nlevel models in which items were nested within days\nand days were nested within persons (Nezlek, 2017).\nThese analyses provided the multilevel equivalent of\na Cronbach's alpha, corrected for differences\nbetween persons and days. The reliabilities were satis-\nfactory (see Table 2).\n\nTable 2. Descriptive statistics for daily measures.\n\nVariance\n\nDaily measure Reliability\nMean Between Within\n\nRumination 325 103 128 76\n\nAdjustment 420 26 62 7\n\nDescriptive statistics for daily rumination and\nadjustment\n\nThe first analyses were null models (no predictors at\neither level of analysis). These analyses estimated the\nmeans and the within- and between-variances of our\ndaily measures, and the results are summarized in\nTable 2. The model is below. There were i days\nnested within j persons. The variance of r; is the\nwithin-person (level 1) variance, and the variance of\nUg; is the between-person (level 2) variance.\n\nWithin-person: y; = Bo; +r;\n\nBetween-person: Bo; = Yoo + Ug;\n\nThese analyses found that there was sufficient\nwithin-person variability to conclude that people\nvaried from day to day, while there was also\nsufficient stability within-persons (the between-\nperson variance) to make it meaningful to examine\nbetween-person differences in means of our daily\nmeasures. Moreover, the means for both measures\nwere toward the midpoint of the scale, suggesting\nthat floor and ceiling effects would not influence our\nresults.\n\nRelationships between attention to words and\nself-report measures\n\nNext, we examined relationships between attention to\nthe four word categories and trait measures of\n\ndepression, worry, and anxiety. Descriptive statistics\n\nes -\n\ncantly related to any trait measure, and\n\nRelationships between attentional bias and\nmean daily rumination and daily adjustment\n\nNext, we examined relationships between eye-track-\ning measures and daily rumination and adjustment\nby including measures of dwell times as level 2 predic-\ntors (see below). We conducted separate analyses for\neach measure of dwell time. The results of these ana-\nlyses are summarized in Table 3. Level 2 predictors\nwere standardized before analysis.\n\n\nBetween-person: Bo; = Yoo + Yor *(dwell time) + ug;\n\nDaily rumination was\npositively related to dwell time on dysphoric words\n(Yor =236, t=3.23, p<.01) and to dwell time on\n\n. In general, the longer participants dwelled\non both dysphoric and threat-related words, the\nmore they ruminated each day, and the more they\ndwelled on threat-related words the poorer was their\n\nsychological adjustment each da:\n\n|\n\nTo control for individual differences in attention per\nse, we calculated the amount of time participants\nspent looking at parts of the stimuli that were not\nwords. The relationships we found between rumina-\ntion and dwell time on dysphoric and threat-related\nwords and between adjustment and dwell time on\nthreat-related words remained significant after con-\ntrolling for time spent looking at parts of the stimulus\narray that were not words. The coefficient between\ndaily rumination and dysphoric words was yo; =.33\n(p=.005), the coefficient between daily rumination\nand threat-related words was yo; =.62 (p=.001), and\nthe coefficient between daily adjustment and threat-\nrelated words was yo, =—.18 (p <.05).\n\nUsing similar models, we examined relationships\ndaily rumination and adjustment and the CES-D,\n\nSTAI, and PSWQ (see Table 3). Daily rumination was\n[BEE Lk (© G0) Sea CS Tams, =r\np<.04) and daily adjustment was negatively related\n\nWe then\nexamined relationships between our daily measures\nand the self-report and eye-tracking measures that\nwere significant in the original analyses. For daily rumi-\nnation, when attention to dysphoric words, attention\nto threat-related words, and depression were simul-\ntaneously included as level 2 (person-level predictors),\n\nCOGNITION AND EMOTION (=) 1281\n\nWithin-person relationship between\nrumination and adjustment\n\n=—.32, t=2388, p <.01). Analyses of trait level moder-\n\nation did not find that this relationship varied as a\nfunction of our trait level variables (all ps > .2).\n\nDiscussion\n\nAs expected, attention to negative words (dysphoric\nand threat-related) was positively related to how\nmuch depressed people ruminated each day. In con-\ntrast, attention to positive and neutral words was\nnot related to daily rumination or adjustment. These\nresults are consistent with the proposal that sustained\nprocessing of negative information leads to rumina-\ntion (Koster et al, 2011; Whitmer & Gotlib, 2013).\n\nPrevious research has consistently found positive\nrelationships between rumination and biases in atten-\ntional control, inhibition, and set shifting functions\n(e.g. Koster et al, 2011); however, these studies\nassessed cognitive control functions, not attention\nitself. Moreover, most previous research has not\nstudied people who were clinically depressed, but\nindividuals (often undergraduates) with elevated\ndepressive symptoms, and they measured rumination\nusing single assessment questionnaires. The current\nstudy represents an improvement over the existing\nresearch because it examined a clinically depressed\nsample, measured attention directly, and measured\nrumination on a daily basis.\n\nTable 3. Relationships between daily rumination, daily adjustment and level 2 predictors.\n\nAttention to words\n\nSelfreport measures\n\nDysphoric Threat-related Positive Neutral Anxiety Worry Depression\nRumination 36+ 63\" 04 20 2 10 24\nAdjustment -10 rid -08 -4 -4 -20* -09\n\nNote: Coefficients accompanied by * were significant at *p < 05, **p < 01, ***p < 001.\n\n\n1282 (©) P.HOLASETAL\n\nOur study extends previous research by demon-\nstrating that attention to dysphoric and threat-\nrelated words is positively related to the strength of\ndaily rumination in clinically depressed individuals.\nAlthough the relationship between rumination and\nattention to threat-related words was somewhat unex-\npected, it is consistent with some previous research.\nFor example, Siegle, Thompson, Carter, Steinhauer,\nand Thase (2007) discussed how depressed individuals\nmay also be hyperresponsive to threat. As noted pre-\nviously, 30 of our 43 participants had been diagnosed\nwith an anxiety disorder, and analyses of participants\nwho did not have an accompanying anxiety diagnosis\nfound the same relationships that were found in the\nanalyses of the full sample. These results suggest\nthat depressed individuals may be more hypersensi-\ntive to threatening stimuli independent of the fact\nthey also tend to be anxious.\n\nOn the other hand, some have suggested that the\nheightened threat response observed among\ndepressed people might be due to the comorbidity\nof depression and anxiety (Engels et al, 2010), and\nthe mean STAI score was elevated compared to\nPolish norms for a distressed sample (e.g. Wrzes-\nniewski, Matusik, & Sosnowski, 2002). The results of\nanalyses that included only participants with STAI\nscores below the mean reported by Wrzesniewski\net al. were similar to the results that included all par-\nticipants. We address this issue below.\n\nWe also found that attention to threat-related\nwords was negatively related to a measure of daily\nadjustment based on Beck's depressive cognitive\ntriad. Biased attention to negative words may facilitate\nsustained processing of negative information which in\nturn may manifest itself by increased depressive\nthoughts and catastrophizing about the self, the\ncurrent day, and the near future (Beck's triad). We\nalso found a negative relationship between adjust-\nment and worry, which suggests that the aspects of\ndepression we measured are related more to threat\nsensitivity than to sadness per se. Consistent with\nsuch a possibility, Rochat, Billieux, and Van der\nLinden (2012) found that difficulty in disengaging\nfrom negative stimuli was positively related to mala-\ndaptive self-referential thinking, including rumination,\nself-blame, and catastrophizing.\n\nLimitations and future directions\n\nAlthough the present study supported our predictions,\nit had limitations. For example, even though there are\n\nno data or theoretically based reasons that suggest\nthat our results are specific to our use of end of day\nreports, it is possible that other data collection proto-\ncols, e.g. multiple assessments each day, would have\nproduced different results. Also, we did not have a\nlarge enough sample to provide a basis for comparing\nindividuals who were depressed but not anxious to\nindividuals who were depressed and anxious.\n\nMore important, our design did not provide a basis\nfor making strong inferences about causality. Further\nresearch is needed to verify that attention to negative\nwords leads to increases in daily rumination. This\ncould be done by examining if modifying attentional\nbiases alters daily rumination. Although there is pre-\nliminary evidence that modification of attentional\nbiases may reduce state rumination (Cohen, Daches,\nMor, & Henik, 2014), and although the unidirectional\nnature of the relationship between attentional pro-\ncesses and rumination is assumed in prominent theor-\netical accounts (cf. Koster et al, 2011), such\nrelationships are far from clearly established. Aside\nfrom the concerns about whether attentional bias\nand depressive symptoms are related (e.g. Marchetti\net al, 2018) there is possibility that rumination may\nbe triggered by higher-order processes and constructs\n(for example, metacognitions) that in turn influence\nboth attention and attentional biases.\n\nThe present findings suggest some directions for\ndevelopment of attention bias modification pro-\ngrammes in depression. If attention to negative\nstimuli leads to rumination, it may be possible to\nreduce rumination by reducing attention to negative\nstimuli, which may be associated with or lead to a\nreduction in depressive symptoms. Moreover, rumina-\ntion is a transdiagnostic process that is related to\nseveral forms of psychopathology (Aldao et al,\n2010), and so understanding the sources of rumina-\ntion could be important for the prevention and treat-\nment of variety of affective disorders, including mood,\nanxiety, and eating disorders.\n\nNote\n\n1. Based on the distinction between reflection and rumina-\ntion as two types of self-focused attention made by Trap-\nnell and Campbell (1999) we use the term “rumination” to\nrefer to what some describe as “brooding rumination’.\n\nDisclosure statement\n\nNo potential conflict of interest was reported by the authors.\n\n\n"
+  "doi": "10.1080/02699931.2018.1541168",
+  "title": "Attention to negative words predicts daily rumination among people with clinical depression: evidencevidence from an eye tracking and daily diary study",
+  "relations": [
+    {
+      "independent_variable_name": "positive attentional bias",
+      "dependent_variable_name": "worry",
+      "relation_classification": "inverse",
+      "is_causal": "yes",
+      "attributes": "Positive attentional bias measured through eye tracking - bias towards looking at positive words when shown on screen alongside negative and neutral words.",
+      "supporting_text": "Attention to positive words was negatively related to worry, whereas anxiety was positively correlated with worry.",
+      "alternate_independent_variable_name": "favorable attentional bias",
+      "alternate_dependent_variable_name": "be anxious"
+    },
+    {
+      "independent_variable_name": "anxiety",
+      "dependent_variable_name": "worry",
+      "relation_classification": "inverse",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "Attention to positive words was negatively related to worry, whereas anxiety was positively correlated with worry.",
+      "alternate_independent_variable_name": "feelings of worry, nervousness, or unease",
+      "alternate_dependent_variable_name": "be anxious"
+    },
+    {
+      "independent_variable_name": "negative attentional bias",
+      "dependent_variable_name": "depression",
+      "relation_classification": "direct",
+      "is_causal": "yes",
+      "attributes": "negative attentional bias measured through eye tracking - bias towards looking at negative or \"dysphoric\" words when shown on screen alongside positive and neutral words.",
+      "supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression",
+      "alternate_independent_variable_name": "tendency to focus on negative information",
+      "alternate_dependent_variable_name": "clinical depression"
+    },
+    {
+      "independent_variable_name": "neutral attentional bias",
+      "dependent_variable_name": "worry",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "attentional bias measured through eye tracking - bias towards looking at a certain category of words when shown on screen with neutral, threat-related, dysphoric, and positive words. ",
+      "supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression",
+      "alternate_independent_variable_name": "unbiased attentional focus",
+      "alternate_dependent_variable_name": "be concerned"
+    },
+    {
+      "independent_variable_name": "neutral attentional bias",
+      "dependent_variable_name": "anxiety",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "attentional bias measured through eye tracking - bias towards looking at a certain category of words when shown on screen with neutral, threat-related, dysphoric, and positive words. ",
+      "supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression",
+      "alternate_independent_variable_name": "unbiased attentional focus",
+      "alternate_dependent_variable_name": "nervousness"
+    },
+    {
+      "independent_variable_name": "neutral attentional bias",
+      "dependent_variable_name": "depression",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "attentional bias measured through eye tracking - bias towards looking at a certain category of words when shown on screen with neutral, threat-related, dysphoric, and positive words. ",
+      "supporting_text": "Attention to threat-related and neutral words was not significantly related to any trait measure, and dysphoric words at statistical tendency level were positively related to depression",
+      "alternate_independent_variable_name": "Unbiased attentional focus",
+      "alternate_dependent_variable_name": "feeling of deep sadness"
+    },
+    {
+      "independent_variable_name": "negative attention bias",
+      "dependent_variable_name": "neutral attention bias",
+      "relation_classification": "positive",
+      "is_causal": "yes",
+      "attributes": "attention biases for negative (dysphoric + threat related) and neutral words are all positively correlated with one another. ",
+      "supporting_text": "There were significant positive correlations between attention to threat-related, dysphoric, and neutral words.",
+      "alternate_independent_variable_name": "bias towards perceiving negative attention",
+      "alternate_dependent_variable_name": "neutral attention preference"
+    },
+    {
+      "independent_variable_name": "depression",
+      "dependent_variable_name": "worry",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
+      "supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1.",
+      "alternate_independent_variable_name": "feeling down",
+      "alternate_dependent_variable_name": "be anxious"
+    },
+    {
+      "independent_variable_name": "depression",
+      "dependent_variable_name": "anxiety",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
+      "supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1.",
+      "alternate_independent_variable_name": "mood disorder",
+      "alternate_dependent_variable_name": "feelings of worry or nervousness"
+    },
+    {
+      "independent_variable_name": "depression",
+      "dependent_variable_name": "negative attentional bias",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
+      "supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1.",
+      "alternate_independent_variable_name": "feelings of intense sadness or hopelessness",
+      "alternate_dependent_variable_name": "attentional bias towards negativity"
+    },
+    {
+      "independent_variable_name": "depression",
+      "dependent_variable_name": "positive attentional bias",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
+      "supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1.",
+      "alternate_independent_variable_name": "feeling of deep sadness",
+      "alternate_dependent_variable_name": "favorable attentional bias"
+    },
+    {
+      "independent_variable_name": "depression",
+      "dependent_variable_name": "neutral attention bias",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "relationship with anxiety and negative attentional bias is borderline significant (directly correlated). ",
+      "supporting_text": "Descriptive statistics for and correlations between these measures are pre- sented in Table 1.",
+      "alternate_independent_variable_name": "feelings of extreme sadness or hopelessness",
+      "alternate_dependent_variable_name": "unbiased attention towards a subject"
+    },
+    {
+      "independent_variable_name": "negative attentional bias",
+      "dependent_variable_name": "rumination",
+      "relation_classification": "direct",
+      "is_causal": "yes",
+      "attributes": "NA",
+      "supporting_text": "As expected, we found significant relationships between dwell time on negative words and daily rumination and adjustment.",
+      "alternate_independent_variable_name": "pessimistic attentional preference",
+      "alternate_dependent_variable_name": "overthinking"
+    },
+    {
+      "independent_variable_name": "negative attentional bias",
+      "dependent_variable_name": "adjustment",
+      "relation_classification": "inverse",
+      "is_causal": "yes",
+      "attributes": "relationship is not significant if adjusted for worry and both types of negative attention bias (dysphoric + threat-related)",
+      "supporting_text": "Daily rumination was positively related to dwell time on dysphoric words (\u03b301 = .36, t = 3.23, p < .01) and to dwell time on threat-related words (\u03b301= .63, t = 3.96, p < .001), and daily adjustment was negatively related to dwell time on threat-related words (\u03b301 = \u2212.21, t = 2.53, p < .02)",
+      "alternate_independent_variable_name": "tendency to focus on the negative",
+      "alternate_dependent_variable_name": "modification"
+    },
+    {
+      "independent_variable_name": "positive attentional bias",
+      "dependent_variable_name": "rumination",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "In contrast, we found no significant relationships between attention to positive words and daily rumination or adjustment.",
+      "alternate_independent_variable_name": "favorable focus on information",
+      "alternate_dependent_variable_name": "overthinking"
+    },
+    {
+      "independent_variable_name": "positive attentional bias",
+      "dependent_variable_name": "adjustment",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "In contrast, we found no significant relationships between attention to positive words and daily rumination or adjustment.",
+      "alternate_independent_variable_name": "favorable focus on stimuli",
+      "alternate_dependent_variable_name": "modification"
+    },
+    {
+      "independent_variable_name": "rumination",
+      "dependent_variable_name": "depression symptoms",
+      "relation_classification": "direct",
+      "is_causal": "yes",
+      "attributes": "NA",
+      "supporting_text": "Daily rumination was positively related to CES-D scores (\u03b301 = .24, t = 2.14, p < .04) and daily adjustment was negatively related to PSWQ scores (\u03b301 = \u2212.20, t = 2.31, p < .03)",
+      "alternate_independent_variable_name": "overthinking",
+      "alternate_dependent_variable_name": "symptoms of depression"
+    },
+    {
+      "independent_variable_name": "adjustment",
+      "dependent_variable_name": "worrying",
+      "relation_classification": "inverse",
+      "is_causal": "yes",
+      "attributes": "NA",
+      "supporting_text": "Daily rumination was positively related to CES-D scores (\u03b301 = .24, t = 2.14, p < .04) and daily adjustment was negatively related to PSWQ scores (\u03b301 = \u2212.20, t = 2.31, p < .03)",
+      "alternate_independent_variable_name": "modification",
+      "alternate_dependent_variable_name": "feeling anxious"
+    },
+    {
+      "independent_variable_name": "positive attentional bias",
+      "dependent_variable_name": "rumination",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (\u03b301 = .64, t = 2.97, p<0.1).",
+      "alternate_independent_variable_name": "favorable attentional bias",
+      "alternate_dependent_variable_name": "overthinking"
+    },
+    {
+      "independent_variable_name": "neutral attentional bias",
+      "dependent_variable_name": "rumination",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (\u03b301 = .64, t = 2.97, p<0.1).",
+      "alternate_independent_variable_name": "unbiased attentional focus",
+      "alternate_dependent_variable_name": "overthinking"
+    },
+    {
+      "independent_variable_name": "anxiety",
+      "dependent_variable_name": "rumination",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (\u03b301 = .64, t = 2.97, p<0.1).",
+      "alternate_independent_variable_name": "feeling of nervousness or worry",
+      "alternate_dependent_variable_name": "repetitive thinking"
+    },
+    {
+      "independent_variable_name": "worry",
+      "dependent_variable_name": "rumination",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily rumination, when attention to dysphoric words, attention to threat-related words, and depression were simultaneously included as level 2 (person-level predictors), only attention to threat-related words remained significant related to daily rumination (\u03b301 = .64, t = 2.97, p<0.1).",
+      "alternate_independent_variable_name": "be concerned",
+      "alternate_dependent_variable_name": "overthinking"
+    },
+    {
+      "independent_variable_name": "adjustment",
+      "dependent_variable_name": "positive attentional bias",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (\u03b301 = \u2212.17, t = 1.76, p = .087; \u03b301 = \u2212.18, t = 1.96, p = .057, respectively).",
+      "alternate_independent_variable_name": "modification",
+      "alternate_dependent_variable_name": "favorable attentional bias"
+    },
+    {
+      "independent_variable_name": "adjustment",
+      "dependent_variable_name": "neutral attentional bias",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (\u03b301 = \u2212.17, t = 1.76, p = .087; \u03b301 = \u2212.18, t = 1.96, p = .057, respectively).",
+      "alternate_independent_variable_name": "modification",
+      "alternate_dependent_variable_name": "neutral selective attention"
+    },
+    {
+      "independent_variable_name": "adjustment",
+      "dependent_variable_name": "anxiety symptoms",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (\u03b301 = \u2212.17, t = 1.76, p = .087; \u03b301 = \u2212.18, t = 1.96, p = .057, respectively).",
+      "alternate_independent_variable_name": "modification",
+      "alternate_dependent_variable_name": "symptoms of anxiety"
+    },
+    {
+      "independent_variable_name": "adjustment",
+      "dependent_variable_name": "depression symptoms",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (\u03b301 = \u2212.17, t = 1.76, p = .087; \u03b301 = \u2212.18, t = 1.96, p = .057, respectively).",
+      "alternate_independent_variable_name": "modification",
+      "alternate_dependent_variable_name": "symptoms of depression"
+    },
+    {
+      "independent_variable_name": "rumination",
+      "dependent_variable_name": "adjustment",
+      "relation_classification": "inverse",
+      "is_causal": "no",
+      "attributes": "not moderated by anxiety, worry, or depression.",
+      "supporting_text": "We examined within-person relationships between daily rumination and daily adjustment by including daily adjustment as a level 1 predictor of rumination, and we found a significant negative relationship (\u03b310 = \u2212.32, t = 2.88, p < .01).",
+      "alternate_independent_variable_name": "overthinking",
+      "alternate_dependent_variable_name": "modification"
+    },
+    {
+      "independent_variable_name": "adjustment",
+      "dependent_variable_name": "worrying",
+      "relation_classification": "independent",
+      "is_causal": "no",
+      "attributes": "NA",
+      "supporting_text": "For daily adjustment, when attention to dys- phoric words, attention to threat-related words, and worry were simultaneously included as level 2 (person-level predictors), attention to threat-related words and worry were negatively related to daily adjustment, although not at the .05 level (\u03b301 = \u2212.17, t = 1.76, p = .087; \u03b301 = \u2212.18, t = 1.96, p = .057, respectively).",
+      "alternate_independent_variable_name": "modification",
+      "alternate_dependent_variable_name": "feeling anxious"
+    }
+  ],
+  "content": "Cognition and Emotion\n\nISSN: 0269-9931 (Print) 1464-0600 (Online) Journal homepage: https://www.tandfonline.com/loi/pcem20\n\nAttention to negative words predicts daily\nrumination among people with clinical depression:\nevidence from an eye tracking and daily diary\nstudy\n\nPawet Holas, Izabela Krejtz, Marzena Rusanowska, Natalia Rohnka & John B.\nNezlek\n\nTo cite this article: Pawet Holas, Izabela Krejtz, Marzena Rusanowska, Natalia Rohnka & John B.\nNezlek (2019) Attention to negative words predicts daily rumination among people with clinical\ndepression: evidence from an eye tracking and daily diary study, Cognition and Emotion, 33:6,\n1277-1283, DOI: 10.1080/02699931.2018.1541168\n\nTo link to this article: https://doi.org/10.1080/02699931.2018.1541168\n\ni333] Published online: 31 Oct 2018.\n\nN\n@ Submit your article to this journal 7\n\nhil Article views: 884\n\n\u00bb\na] View related articles (Z'\n\n\u00ae View Crossmark data\n\n[al Citing articles: 5 View citing articles (2\n\nFull Terms & Conditions of access and use can be found at\nhttps://www.tandfonline.com/action/journalinformation?journalCode=pcem20\n\nH\n\nR\n\nRoutledge\n\nTaylor & Francis Group\n\n\nCOGNITION AND EMOTION\n2019, VOL. 33, NO. 6, 1277-1283\nhttps://doi.org/10.1080/02699931.2018.1541168\n\nTaylor & Francis Group\n\n; Routledge\n\nBRIEF ARTICLE\n\nAtten\n\n\u00ae) Crock for pdaies\n\nn to negative words predicts daily rumination among people\n\nwith clinical depression: evidence from an eye tracking and daily diary\n\nstudy\n\nPawel Holas?, Izabela Krejtz\u00b0, Marzena Rusanowska, Natalia Rohnka\u00ae and John B. Nezlek\u00ae*\u00ae\n\n\u201cFaculty of Psychology, University of Warsaw, Warsaw, Poland; \u201cPsychology Department, SWPS University of Social Sciences and\nHumanities, Warsaw, Poland; institute of Psychology, Polish Academy of Sciences, Warsaw, Poland; \u201cDepartment of Psychology,\nSWPS University of Social Sciences and Humanities, Pozna, Poland; \u201cDepartment of Psychology, College of William & Mary,\n\nWilliamsburg, VA, USA\n\nABSTRACT\n\nThe present study examined relationships between attention to negative words and\ndaily rumination and daily adjustment in a sample of clinically depressed\nindividuals. We recorded eye movements of 43 individuals diagnosed with major\ndepression while they were freely viewing dysphoric, threat-related, neutral, and\npositive words. Then, each day for one week, participants provided measures of\ntheir daily rumination and psychological adjustment. Multilevel analyses found that\n\nARTICLE HISTORY\nReceived 13 February 2018\nRevised 17 October 2018\n\nAccepted 18 October 2018\n\nKEYWORDS\nRumination; attentional bias;\neye movements; diary study\n\nattention to dysphoric and threat-related words was positively related to daily\nrumination and attention to threat-related words was negatively related to daily\nadjustment. These findings suggest that the impaired ability to disengage from\nnegative words is positively related to rumination in daily life and is negatively\nrelated to well-being, as defined in terms of Beck's Triad.\n\nCognitive theories of depression posit that persistent\nnegative cognitions and cognitive biases, such as\nattentional bias to negative information, lead to the\ndevelopment and maintenance of depression (e.g.\nBeck, Rush, Shaw, & Emery, 1979). Negative cognitions,\ncharacterized by repetitive, recurrent, intrusive, and\nuncontrollable thoughts, have been broadly defined\nas rumination (Brinker & Dozois, 2009). Moreover,\nattentional biases and rumination play key roles in\nthe NIMH Research Domain Criteria (RDoC) of Negative\nValence Systems construct of Loss (NIMH, 2008).\nAlthough research has found that depression is\nrelated to attentional biases (e.g. Armstrong & Olatunji,\n2012) and increased ruminative thinking (e.g. Aldao,\nNolen-Hoeksema, & Schwiezer, 2010), only a few\nstudies have examined direct relationships between\nattentional biases and ruminative style in depression.\n\nIn a study of a clinically depressed sample, Donald-\nson, Lam, and Mathews (2007) found a positive\nrelationship between trait rumination and attentional\nbiases to depression-related information using a dot-\n\nprobe task. Similarly, Joormann, Dkane, and Gotlib\n(2006) reported that rumination was associated with\nincreased attention to sad faces in currently depressed\nadults.\" Sustained visual processing of negative faces\nwas found to be associated with a stronger ruminative\nstyle in dysphoric and non-dysphoric students (Duque,\nSanchez, & Vazquez, 2014). Consistent with this, Owens\nand Gibb (2017) found that rumination was positively\nrelated to attention to sad faces and was negatively\nrelated to happy faces in non-depressed individuals.\n\nNevertheless, to our knowledge, no study has\nexamined relationships between attention to negative\nwords and daily rumination in clinically depressed\nindividuals. Moreover, to our knowledge, no study\nhas used eye-tracking to examine relationships\nbetween attentional biases and rumination among\nthose with clinical depression. The present study\nexamined relationships between attention to\nemotional words and daily reports of rumination and\npsychological adjustment among the clinically\ndepressed.\n\nCONTACT Pawel Holas ) pawel holas@psych.uw.edu.pl\n\u00a9 2018 Informa UK Limited, trading as Taylor & Francis Group.\n\n\n1278 (&) P.HOLASETAL\n\nAttentional biases in depression\n\nAlthough a recent meta-analysis questioned the\nassociation between attentional bias and depressive\nsymptoms (Marchetti et al., 2018), the bulk of research\nhas found that attentional biases in depression consist\nof greater maintenance of gaze on negative infor-\nmation and a lack of the positive attentional bias\nthat is typically reported in healthy people in eye-\ntracking studies (Armstrong & Olatunji, 2012). Biased\nattention to emotional stimuli affects the course of\ndepression by elevating the rate of incoming negative\nemotional information and decreasing the rate of\nincoming positive information, which leads to more\npersistent sad moods (Joormann & Arditte, 2013). Con-\nsistent with this, in a study of depressed individuals,\nDisner, Shumake, and Beevers (2017) found that atten-\ntion to negative words was positively related to\nincreases over time in depressive symptoms, and\nDonaldson et al. (2007) found that attentional bias\nfor negative words was positively related to trait\nrumination.\n\nImpaired disengagement hypothesis of\nrumination\n\nThe impaired disengagement hypothesis of rumina-\ntion posits that the positive relationship between the\namount of time spent processing negative self-refer-\nential material and levels of rumination is due to\nimpaired attentional disengagement (Koster, De Liss-\nnyder, Derakshan, & De Raedt, 2011), and as discussed\nby Koster et al. (2011), several studies have found that\nrumination is related to impairments and valence-\nspecific biases in attentional control. A lack of inhibi-\ntory control over negative information prevents indi-\nviduals from implementing emotion regulation\nstrategies that may be more adaptive than rumination,\nsuch as redirection of attention or positive reappraisal\n(Joormann & D'Avanzato, 2010) and leads to increases\nin the amount of negative information entering\nworking memory (Koster et al, 2011). Consistent\nwith this, Southworth, Grafton, Macleod, and\nWatkins (2017) found that rumination was positively\nrelated to difficulty in disengaging attention from\nnegative to positive words.\n\nIssues in measuring rumination\n\nStudies of relationships between rumination and\nattentional processes have used single-assessment\n\nmeasures of dispositional rumination such as the\nRuminative Responses Scale (RRS) (Treynor, Gonza-\nlez, & Nolen-Hoeksema, 2003). Respondents indicate\nhow they are on average or usually, often without\nreferring to specific temporal or situational circum-\nstances. As discussed by Nezlek (2012), measuring\nindividual differences using single-assessments has\nimportant limitations. Single assessments may\nreflect more recent or more important states than\nmore temporally distant or less important states,\ne.g. a negative event from the past week influences\nresponses more than the positive events from the\nweek. Also, the temporal frame of questions is\noften not specified, and individual differences in\nhow people interpret \u201cgenerally\u201d or \u201ctypically\u201d can\ninfluence responses. To overcome some of these\nlimitations, in the present study we measured rumi-\nnation on a daily basis using a measure that focused\non the present day.\n\nThe present study\n\nDespite the results of previous studies, the role of\nvisual processing of negative stimuli in maintenance\nof depression needs to be clarified. Although several\nstudies have found positive relationships between\nrumination and impaired executive control, few\nstudies have examined the impaired attentional disen-\ngagement hypothesis using methods that can dis-\ntinguish engagement and disengagement biases\n(Southworth et al, 2017) or that included continuous\nmeasures of eye behaviour (Owens & Gibb, 2017).\nThe present study examined relationships between\nattention to negative words and daily rumination\nand daily psychological adjustment in depressed indi-\nviduals. We assumed that attention to negative words\nwould be related to a depressogenic thinking style/\nprocess, rumination, and would be related to depres-\nsogenic thought content, a measure of adjustment\nbased on Beck's cognitive triad.\n\nWe measured attention to negative words using\neye-tracking. This provided a direct measure of atten-\ntion which we believe is an improvement over\nmethods that evaluate the allocation of attention\nindirectly from response latencies to probes.\nDifficulty in disengaging attention from negative\nstimuli should be manifested by longer attention\n(dwell time) to negative stimuli. We hypothesized\nthat dwell time on negative words would be positively\nrelated to daily rumination and negatively related to\ndaily adjustment.\n\n\nMethod\nParticipants\n\nParticipants were recruited via an open call posted on\ninternet portals. The call invited volunteers to participate\nin a study about how people feel and how they process\ninformation in their daily lives. Initially, 221 people\nresponded to this call, and of these, 199 completed an\nonline version of the CES-D (Radloff, 1977). Individuals\nwho had CES-D scores of greater than 20 (N =73) were\ninvited for an individual interview during which the\nMini-International Neuropsychiatric Interview (V. 5.0.0;\nSheehan et al, 1998) was administered by a trained clin-\nician. To be eligible for the study, individuals had to be\ndiagnosed as currently experiencing a major depression\ndisorder episode. Individuals were excluded if they had\nbipolar disorder, substance abuse, a current or lifetime\npsychotic disorder or current suicidal tendencies. Ten\nparticipants dropped out from the study after beginning\nthe study. Due to technical problems with recording eye\nmovements (e.g. poor calibration) or compliance with\ninstructions the final sample consisted of 43 participants\n(F=29, Mage = 34.42, SD = 12.71). Thirty-two participants\n(74%) had a comorbid diagnosis, 27 of whom were diag-\nnosed with an accompanying anxiety disorder. Partici-\npants were paid approximately 30USD.\n\nProcedure\n\nFirst, participants came the laboratory and completed\nthe eye-tracking task and three questionnaires. They\nthen maintained an online diary for at least 7 consecu-\ntive days.\n\nThe research protocol was approved by the IRB of\nthe authors\u2019 institution. All participants provided\nwritten informed consent.\n\nSelf-report measures\n\nParticipants completed three measures: the Center\nfor Epidemiologic Studies Depression Scale (CES-D:\n\nTable 1. Correlations and descriptive statistics for level 2 variables.\n\nCOGNITION AND EMOTION (&) 1279\n\nRadloff, 1977), the trait subscale of the State-Trait\nAnxiety Inventory (STAI: Spielberger, 1989), and the\nPenn State Worry Questionnaire (PSWQ: Meyer,\nMiller, Metzger, & Borkovec, 1990). Descriptive stat-\nistics for these measures are presented in Table 1.\n\nEye tracking measures\n\nFour words task\n\nFollowing the procedure used by Ellis, Beevers, and\nWells (2011), we presented 12 slides with 4 words on\neach, and participants were asked to read the words.\nWords were selected from the Affective Norms for\nEnglish Words (ANEW, Bradley & Lang, 1999). There\nwere four categories of words: dysphoric (e.g. gloom,\nsad), threat-related (e.g. killer, angry), neutral (e.g.\nankle, sphere), and positive (e.g. home, sun). Each\nslide was presented for 10 sec and contained one\nword from each category. Words presented on the\nsame slide were matched for length, and the order\nof slides was randomized. At the beginning of each\ntrial a fixation cross appeared in the middle of the\nscreen for 1000 ms.\n\nApparatus\nThe stimuli were presented on a 22\u2019 diameter monitor\nat a viewing distance of 70 cm. Participants\u2019 eye move-\nments were recorded with a SMI RED eye-tracker, with\na sampling rate of 120 Hz and a 9-point calibration\nbefore the task. Measurements were made in a room\nwith no windows and constant ambient light. SMI's\nstandard BeGaze dispersion-based algorithm was\nused for detecting fixations and saccades. The\nminimal fixation duration was set to 80 ms.\nRectangular areas of interest were drawn around\neach word, and we calculated the total time spent\nfixating on the target stimuli (dwell time). One partici-\npant had an extreme value (+ 35D) of dwell time on\npositive words. We conducted the analyses with and\nwithout this case, and the results were similar, so we\nreport the results with all cases included.\n\nMean (sD) 1 2 3 4 5 6 7\n1 Depression (CESD) 3863 (7.09) -\n2 Wony (PSWQ) 60.86 (9.73) 3 -\n3 Anxiety (STAT) 54381 (5.50) 0% Za -\nAttention (ms) to\n4 Threatrelated words 1674.96 (551.47) 19 17 09 -\n5 Dysphoric words 1762.31 (641.58) 8 7 13 a3 61% -\n6 Neutral words 1635.54 (420.30) 06 11 ~01 78 60m -\n7 Positive words 1917.72 (81088) -16 -35% 27% -m -05 07 -\n\nNote: % \u00a9\u201d: %8 statistical tendency, *p <.05, ***p <.001.\n\n\n1280 (\u00a9) P.HOLASETAL\n\nOne-week online diary\n\nAt the end of each day for a week participants used a\nsecure online platform to answer a series of questions\nabout their daily rumination and adjustment. Daily\nrumination was measured using three items from the\nRumination-Reflection Questionnaire (Trapnell & Camp-\nbell, 1999) that were reworded for daily administration.\nParticipants answered the following questions: How\nmuch today did you \u201cruminate\u201d or dwell on things\nthat happened to you? How much today did you play\nback over in your mind how you acted in a past situ-\nation? How much time today did you spend rethinking\nthings that are over and done with? Daily adjustment\nwas measured with three items based on Beck et al.'s\n(1979) cognitive triad: Thinking about today in\ngeneral how positive were your thoughts about your-\nself? How well did things go today? Today, how opti-\nmistic are you about how your life (in general) will be\ntomorrow? Participants answered using 1-7 scales,\nscored so that higher numbers indicated more rumina-\ntion and better adjustment during the day.\n\nCompliance with instructions\n\nBefore analysing the data, we inspected the time of\nparticipants\u2019 entries. Valid entries were defined as\nthose provided after 6 pm of the day in question\nand no later than 6 am of the following day. Following\nthis procedure, we analysed 251 days, and participants\nprovided on average 6.0 days of diary data.\n\nResults\n\nThe data were conceptualized as a two level structure\nin which days were nested within individuals. We ana-\nlysed the data using multilevel models using the pro-\ngramme HLM following guidelines described by\nNezlek (2012). Before the primary analyses, the\nreliability of our measures was examined using three\nlevel models in which items were nested within days\nand days were nested within persons (Nezlek, 2017).\nThese analyses provided the multilevel equivalent of\na Cronbach's alpha, corrected for differences\nbetween persons and days. The reliabilities were satis-\nfactory (see Table 2).\n\nTable 2. Descriptive statistics for daily measures.\n\nVariance\n\nDaily measure Reliability\nMean Between Within\n\nRumination 325 103 128 76\n\nAdjustment 420 26 62 7\n\nDescriptive statistics for daily rumination and\nadjustment\n\nThe first analyses were null models (no predictors at\neither level of analysis). These analyses estimated the\nmeans and the within- and between-variances of our\ndaily measures, and the results are summarized in\nTable 2. The model is below. There were i days\nnested within j persons. The variance of r; is the\nwithin-person (level 1) variance, and the variance of\nUg; is the between-person (level 2) variance.\n\nWithin-person: y; = Bo; +r;\n\nBetween-person: Bo; = Yoo + Ug;\n\nThese analyses found that there was sufficient\nwithin-person variability to conclude that people\nvaried from day to day, while there was also\nsufficient stability within-persons (the between-\nperson variance) to make it meaningful to examine\nbetween-person differences in means of our daily\nmeasures. Moreover, the means for both measures\nwere toward the midpoint of the scale, suggesting\nthat floor and ceiling effects would not influence our\nresults.\n\nRelationships between attention to words and\nself-report measures\n\nNext, we examined relationships between attention to\nthe four word categories and trait measures of\n\ndepression, worry, and anxiety. Descriptive statistics\n\nes -\n\ncantly related to any trait measure, and\n\nRelationships between attentional bias and\nmean daily rumination and daily adjustment\n\nNext, we examined relationships between eye-track-\ning measures and daily rumination and adjustment\nby including measures of dwell times as level 2 predic-\ntors (see below). We conducted separate analyses for\neach measure of dwell time. The results of these ana-\nlyses are summarized in Table 3. Level 2 predictors\nwere standardized before analysis.\n\n\nBetween-person: Bo; = Yoo + Yor *(dwell time) + ug;\n\nDaily rumination was\npositively related to dwell time on dysphoric words\n(Yor =236, t=3.23, p<.01) and to dwell time on\n\n. In general, the longer participants dwelled\non both dysphoric and threat-related words, the\nmore they ruminated each day, and the more they\ndwelled on threat-related words the poorer was their\n\nsychological adjustment each da:\n\n|\n\nTo control for individual differences in attention per\nse, we calculated the amount of time participants\nspent looking at parts of the stimuli that were not\nwords. The relationships we found between rumina-\ntion and dwell time on dysphoric and threat-related\nwords and between adjustment and dwell time on\nthreat-related words remained significant after con-\ntrolling for time spent looking at parts of the stimulus\narray that were not words. The coefficient between\ndaily rumination and dysphoric words was yo; =.33\n(p=.005), the coefficient between daily rumination\nand threat-related words was yo; =.62 (p=.001), and\nthe coefficient between daily adjustment and threat-\nrelated words was yo, =\u2014.18 (p <.05).\n\nUsing similar models, we examined relationships\ndaily rumination and adjustment and the CES-D,\n\nSTAI, and PSWQ (see Table 3). Daily rumination was\n[BEE Lk (\u00a9 G0) Sea CS Tams, =r\np<.04) and daily adjustment was negatively related\n\nWe then\nexamined relationships between our daily measures\nand the self-report and eye-tracking measures that\nwere significant in the original analyses. For daily rumi-\nnation, when attention to dysphoric words, attention\nto threat-related words, and depression were simul-\ntaneously included as level 2 (person-level predictors),\n\nCOGNITION AND EMOTION (=) 1281\n\nWithin-person relationship between\nrumination and adjustment\n\n=\u2014.32, t=2388, p <.01). Analyses of trait level moder-\n\nation did not find that this relationship varied as a\nfunction of our trait level variables (all ps > .2).\n\nDiscussion\n\nAs expected, attention to negative words (dysphoric\nand threat-related) was positively related to how\nmuch depressed people ruminated each day. In con-\ntrast, attention to positive and neutral words was\nnot related to daily rumination or adjustment. These\nresults are consistent with the proposal that sustained\nprocessing of negative information leads to rumina-\ntion (Koster et al, 2011; Whitmer & Gotlib, 2013).\n\nPrevious research has consistently found positive\nrelationships between rumination and biases in atten-\ntional control, inhibition, and set shifting functions\n(e.g. Koster et al, 2011); however, these studies\nassessed cognitive control functions, not attention\nitself. Moreover, most previous research has not\nstudied people who were clinically depressed, but\nindividuals (often undergraduates) with elevated\ndepressive symptoms, and they measured rumination\nusing single assessment questionnaires. The current\nstudy represents an improvement over the existing\nresearch because it examined a clinically depressed\nsample, measured attention directly, and measured\nrumination on a daily basis.\n\nTable 3. Relationships between daily rumination, daily adjustment and level 2 predictors.\n\nAttention to words\n\nSelfreport measures\n\nDysphoric Threat-related Positive Neutral Anxiety Worry Depression\nRumination 36+ 63\" 04 20 2 10 24\nAdjustment -10 rid -08 -4 -4 -20* -09\n\nNote: Coefficients accompanied by * were significant at *p < 05, **p < 01, ***p < 001.\n\n\n1282 (\u00a9) P.HOLASETAL\n\nOur study extends previous research by demon-\nstrating that attention to dysphoric and threat-\nrelated words is positively related to the strength of\ndaily rumination in clinically depressed individuals.\nAlthough the relationship between rumination and\nattention to threat-related words was somewhat unex-\npected, it is consistent with some previous research.\nFor example, Siegle, Thompson, Carter, Steinhauer,\nand Thase (2007) discussed how depressed individuals\nmay also be hyperresponsive to threat. As noted pre-\nviously, 30 of our 43 participants had been diagnosed\nwith an anxiety disorder, and analyses of participants\nwho did not have an accompanying anxiety diagnosis\nfound the same relationships that were found in the\nanalyses of the full sample. These results suggest\nthat depressed individuals may be more hypersensi-\ntive to threatening stimuli independent of the fact\nthey also tend to be anxious.\n\nOn the other hand, some have suggested that the\nheightened threat response observed among\ndepressed people might be due to the comorbidity\nof depression and anxiety (Engels et al, 2010), and\nthe mean STAI score was elevated compared to\nPolish norms for a distressed sample (e.g. Wrzes-\nniewski, Matusik, & Sosnowski, 2002). The results of\nanalyses that included only participants with STAI\nscores below the mean reported by Wrzesniewski\net al. were similar to the results that included all par-\nticipants. We address this issue below.\n\nWe also found that attention to threat-related\nwords was negatively related to a measure of daily\nadjustment based on Beck's depressive cognitive\ntriad. Biased attention to negative words may facilitate\nsustained processing of negative information which in\nturn may manifest itself by increased depressive\nthoughts and catastrophizing about the self, the\ncurrent day, and the near future (Beck's triad). We\nalso found a negative relationship between adjust-\nment and worry, which suggests that the aspects of\ndepression we measured are related more to threat\nsensitivity than to sadness per se. Consistent with\nsuch a possibility, Rochat, Billieux, and Van der\nLinden (2012) found that difficulty in disengaging\nfrom negative stimuli was positively related to mala-\ndaptive self-referential thinking, including rumination,\nself-blame, and catastrophizing.\n\nLimitations and future directions\n\nAlthough the present study supported our predictions,\nit had limitations. For example, even though there are\n\nno data or theoretically based reasons that suggest\nthat our results are specific to our use of end of day\nreports, it is possible that other data collection proto-\ncols, e.g. multiple assessments each day, would have\nproduced different results. Also, we did not have a\nlarge enough sample to provide a basis for comparing\nindividuals who were depressed but not anxious to\nindividuals who were depressed and anxious.\n\nMore important, our design did not provide a basis\nfor making strong inferences about causality. Further\nresearch is needed to verify that attention to negative\nwords leads to increases in daily rumination. This\ncould be done by examining if modifying attentional\nbiases alters daily rumination. Although there is pre-\nliminary evidence that modification of attentional\nbiases may reduce state rumination (Cohen, Daches,\nMor, & Henik, 2014), and although the unidirectional\nnature of the relationship between attentional pro-\ncesses and rumination is assumed in prominent theor-\netical accounts (cf. Koster et al, 2011), such\nrelationships are far from clearly established. Aside\nfrom the concerns about whether attentional bias\nand depressive symptoms are related (e.g. Marchetti\net al, 2018) there is possibility that rumination may\nbe triggered by higher-order processes and constructs\n(for example, metacognitions) that in turn influence\nboth attention and attentional biases.\n\nThe present findings suggest some directions for\ndevelopment of attention bias modification pro-\ngrammes in depression. If attention to negative\nstimuli leads to rumination, it may be possible to\nreduce rumination by reducing attention to negative\nstimuli, which may be associated with or lead to a\nreduction in depressive symptoms. Moreover, rumina-\ntion is a transdiagnostic process that is related to\nseveral forms of psychopathology (Aldao et al,\n2010), and so understanding the sources of rumina-\ntion could be important for the prevention and treat-\nment of variety of affective disorders, including mood,\nanxiety, and eating disorders.\n\nNote\n\n1. Based on the distinction between reflection and rumina-\ntion as two types of self-focused attention made by Trap-\nnell and Campbell (1999) we use the term \u201crumination\u201d to\nrefer to what some describe as \u201cbrooding rumination\u2019.\n\nDisclosure statement\n\nNo potential conflict of interest was reported by the authors.\n\n\n"
 }
