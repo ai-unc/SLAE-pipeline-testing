@@ -29,6 +29,8 @@ def extract_results_text(paper_testfile_path):
         temp = content_lowercase.rfind(search_string)
         if temp < index: continue
         index = temp
+        # If we find the search string beyond 40% of the text, ideally that should be where we can start looking for talk of the results. That seemed to be the case with manual testing
+        # This also means that if a paper has a "Results" heading, it won't be overridden by looping through and also matching an even later "Conclusions" heading
         if index > len(content_lowercase) * 2 / 5:
             break
         elif index > -1:
