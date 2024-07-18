@@ -43,8 +43,7 @@ def extract_results_text(paper_testfile_path):
 
     last_index = len(content_lowercase)
     last_index_search_strings = (
-        build_search_strings("discussion")
-        + build_search_strings("references")
+        build_search_strings("references")
         + build_search_strings("acknowledgements")
         + build_search_strings("acknowledgement")
         + build_search_strings("contributions")
