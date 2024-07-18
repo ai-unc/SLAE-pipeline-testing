@@ -59,7 +59,7 @@ def extract_results_text(paper_testfile_path):
     if last_index < len(content_lowercase):
         last_index += index
 
-    output = content_lowercase[index:last_index]
+    output = data["content"][index:last_index]
     if len(output) < 1:
         print(f"\033[91m{data["title"]}\033[0;0m: output empty")
     else:
