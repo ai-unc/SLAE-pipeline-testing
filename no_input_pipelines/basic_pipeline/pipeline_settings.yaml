@@ -1,0 +1,25 @@
+model: gpt-4o
+
+# text, format_instructions and relationships are automatically generated variables
+instructions: |
+  You will be given text from an academic paper. Your task is to classify causal relationship between the variables in the text.
+  For example, if the text includes "We find a strong correlation p < .0001 between a country's per capita income and it's literacy rate" then a relation should be output like "Country's per capita income -> Country's literacy rate", and the the relation_classification would be direct.
+  If instead the text includes "We find a strong negative correlation p < .0001 between a country's per capita income and it's literacy rate" then the relation_classification would be inverse.
+  The supporting_text field of your output should include reasoning for the relation  summarized from the text.
+  The supporting_text field should be used to step by step reason from the text of the paper to try to come up with a good relationship classification and should focus on plainly stated results over implications.
+  The relation_classification field can only be 'direct', 'inverse', or 'independent'. 
+  "direct" means that an increase in one associates with an increase in another. 
+  "inverse" means that an increase in one associates with a decrease in another.
+  "independent" means there is no clear relationship between the two variables.
+  The attributes field should include any other relevant factors affecting the relationship. If none are present, the field should contain "N/A".
+  There may be any number of relationships present in the text. Output as many accurate relationships as possible.
+
+  OUTPUT FORMATTING INSTRUCTIONS START
+  Your output MUST be in JSON format and must conform the the following
+  {format_instructions}
+  OUTPUT FORMATTING INSTRUCTIONS END
+
+prompt: |
+  {text}
+
+verbose: True
