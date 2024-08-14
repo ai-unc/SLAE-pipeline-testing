@@ -202,6 +202,7 @@ if __name__ == "__main__":
   EVALUATE = True
   RANDOMIZE = False
   DEBUG = True
+  USE_ALTERNATE_NAMES = False
   NUM_TRIALS = 1
   NUM_PAPERS = 1
   
@@ -211,25 +212,25 @@ if __name__ == "__main__":
       ground_truth = solution[i]
       if DEBUG:
         print("\n\n\nGUESS:")
-        print(*[r["RelationshipClassification"] for r in paper["Relations"]], sep="\n")
+        print(*[r["relation_classification"] for r in paper["relations"]], sep="\n")
         print("\n\n\nGROUND TRUTH:")
-        print(*[r["RelationshipClassification"] for r in ground_truth["Relations"]], sep="\n")
+        print(*[r["relation_classification"] for r in ground_truth["relations"]], sep="\n")
         
-      if "Relations" not in paper or "Relations" not in ground_truth:
-        raise Exception("Key error: Relations.")
-      if len(paper["Relations"]) != len(ground_truth["Relations"]):
+      if "relations" not in paper or "relations" not in ground_truth:
+        raise Exception("Key error: relations.")
+      if len(paper["relations"]) != len(ground_truth["relations"]):
         print("\n\n\nGUESS:")
         print(*extract_all_ordered_pairs(paper), sep="\n")
         print("\n\n\nGROUND TRUTH:")
         print(*extract_all_ordered_pairs(ground_truth), sep="\n")
-        raise RelationCountError(f"Prediction has {len(paper['Relations'])} relations and ground truth has {len(ground_truth['Relations'])}.")
+        raise RelationCountError(f"Prediction has {len(paper['relations'])} relations and ground truth has {len(ground_truth['relations'])}.")
       
       score = 0
-      for j, prediction in enumerate(paper["Relations"]):
-        relation = ground_truth["Relations"][j]
-        score += 1 if relation["RelationshipClassification"].lower().strip() == prediction["RelationshipClassification"].lower().strip() else 0
-      paper_score = (score / len(ground_truth["Relations"])) * 100
-      scores[ground_truth["PaperTitle"]] = paper_score
+      for j, prediction in enumerate(paper["relations"]):
+        relation = ground_truth["relations"][j]
+        score += 1 if relation["relation_classification"].lower().strip() == prediction["relation_classification"].lower().strip() else 0
+      paper_score = (score / len(ground_truth["relations"])) * 100
+      scores[ground_truth["title"]] = paper_score
     
     return scores
   
@@ -238,15 +239,17 @@ if __name__ == "__main__":
       
     for _ in range(NUM_TRIALS):
         # Load data
-        source = [file for file in listdir("./pipeline_evaluator/full_dataset") if file != "A_Preliminary_Investigation_of_Cognitive_Flexibility.json"]
+        source = [file for file in listdir("./pipeline_evaluator/full_dataset")]
         if RANDOMIZE:
           shuffle(source)
         
         # Make Predictions
         predictions = []
         for paper in source[:NUM_PAPERS]:
+            print(f"Predicting {paper}")
             prediction = call_pipeline(data_path=f"./pipeline_evaluator/full_dataset/{paper}",
-                                        settings_path="./pipelines/iterative_summary_pipeline/pipeline_settings.yaml")
+                                        settings_path="./pipelines/clustered_relations_pipeline/pipeline_settings_openai.yaml",
+                                        use_alternate_names=USE_ALTERNATE_NAMES)
             predictions.append(prediction)
         
         #score

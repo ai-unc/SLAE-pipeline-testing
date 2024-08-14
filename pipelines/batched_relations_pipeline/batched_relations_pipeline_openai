@@ -37,8 +37,7 @@ class RelationCountError(Exception):
   def __init__(self, message):
     self.message = message
     super().__init__(self.message)
-
-embeddingModel = SentenceTransformer("all-MiniLM-L6-v2")
+    super().__init__(self.message)
 
 #Define additional functions for pipeline
 
@@ -46,61 +45,22 @@ def clean_data(data_path:str) -> dict:
     """Reads Json and removes list of user predictions"""
     with open(data_path, "r") as f:
         data = json.load(f)
-    for relation in data['relations']:
-        relation["relation_classification"] = ""
-        relation["is_causal"] = ""
-        relation["supporting_text"] = ""
+    for relation in data['Relations']:
+        relation["RelationshipClassification"] = ""
+        relation["isCausal"] = ""
+        relation["SupportingText"] = ""
     return data  
 
 def extract_all_ordered_pairs(data:Dict) -> List[str]:
     #Extract the relationships
-    relationships = data.get("relations", [])
+    relationships = data.get("Relations", [])
     variable_pairs = []
     # Iterate through each relationship and extract variables
     for relationship in relationships:
-        variable_one = relationship.get("independent_variable_name", "")
-        variable_two = relationship.get("dependent_variable_name", "")
+        variable_one = relationship.get("VariableOneName", "")
+        variable_two = relationship.get("VariableTwoName", "")
         variable_pairs.append(variable_one + " -> " + variable_two)
     return variable_pairs
-  
-def segment_text(text: str) -> List[str]:
-    """
-    Segments the given text into sections each containing one paragraph, separated by double newlines.
-    """
-    paragraphs = text.split('\n\n')
-    print(f"PARAGRAPHS: {len(paragraphs)}")
-    #remove empty segments
-    paragraphs = [paragraph.replace("\n", " ") for paragraph in paragraphs if paragraph.strip() != "" and len(paragraph) >= 20]
-    return paragraphs
-
-def cluster_text(text:str, num_clusters:int) -> List[str]:
-  """
-  Splits text into a list of its paragraphs, then combines similar paragraphs into clusters and returns a list of clusters
-  """
-  print("Clustering text...")
-  #split text into multiple sentence segments
-  segments = segment_text(text)
-  for segment in segments:
-    print("--------------------------------")
-    print(segment)
-  # segments = [seg for seg in segments if seg.strip() != "" and len(seg) >= 10] #remove empty segments
-  if len(segments) == 1: return segments  #return if only one paragraph
-  
-  segment_embeddings = embeddingModel.encode(segments)
-  print("Embeddings complete.")
-  # Cluster together similar segments using KMeans
-  kmeans = KMeans(n_clusters=num_clusters, random_state=0).fit(segment_embeddings)
-  print("KMeans clustering complete.")
-  
-  #Group segments into clusters based on KMean clustering
-  clusters : Dict = {}
-  for seg,k in zip(segments, kmeans.labels_):
-    if k not in clusters: clusters[k] = ""
-    clusters[k] += (seg) + "\n"
-  for c in clusters:
-    print(clusters[c])
-  print("Clustering complete.")
-  return list(clusters.values())
 
 def call_LLM(instruction, text, model:str) -> str:
   """Used to call a OpenAI LLM model"""
@@ -115,10 +75,10 @@ def call_LLM(instruction, text, model:str) -> str:
     ]   
   )
   return completion.choices[0].message.content
-
+    
 def summarize(text:str, model:str) -> str:
   """Used to summarize text during pre-processing
-  Currently unused in Clustered Relations pipeline
+  Currently unused in OpenAI pipeline
   """
   prompt = \
     f"""
@@ -133,87 +93,59 @@ def summarize(text:str, model:str) -> str:
     """
   return call_LLM(prompt, text, model)
 
-def pipeline(data:Dict, instructions:str, text_format:str, model:str, *, debug:bool=False) -> Dict:
+def pipeline(data:Dict, instructions:str, text_format:str, *, debug:bool=False) -> Dict:
   """
   data should already be cleaned
-  This pipeline uses embedding similarity to match relations to summaries
   """
-  if debug: print(f"Model: {model}")
-  paper_text = data["content"]
+  paper_text = data["PaperContents"]
   
-  # Extract relationships from the summarized text
-  relationships:List[str] = extract_all_ordered_pairs(data)
   
-  #Create clusters and summarize
-  CLUSTER_MULTIPLIER:float = 1 #The number of clusters is (num relationships * this number).
-  summaries = []
-  clusters = cluster_text(paper_text, max(1, int(len(relationships)*CLUSTER_MULTIPLIER + 1))) # ensure at least one cluster
-  print(len(clusters))
+  # Summarize paper
+  if debug: print("Summarizing paper...")
   
-  summaries = [cluster for cluster in clusters]
+  paper_text = summarize(paper_text, model)  
+  
+  if debug: print(f"Summarized text:\n{paper_text}")
     
-  parser = PydanticOutputParser(pydantic_object=ListOfRelations)
-  instructions = instructions.format(format_instructions=parser.get_format_instructions())
-  
-  summary_embeddings = embeddingModel.encode(summaries)
-  
-  # Batch process relationships
-  BATCH_SIZE = 3
-  SUMMARIES_PER_BATCH = 5
-  output_jsons = []
+  # Extract relationships from the summarized text
+  relationships = extract_all_ordered_pairs(data)
+  parser = PydanticOutputParser(pydantic_object=ListOfRelations) #Refers to a class called SingleRelation.
+  parsed_output = {}
+  BATCH_SIZE = 5
   for i in range(0, len(relationships), BATCH_SIZE):
-    relations = relationships[i:i+BATCH_SIZE]
-    relation_embeddings = embeddingModel.encode("\n".join(relations))
-    if debug:
-      print(f"relation embedding shape: {relation_embeddings.shape}")
-      print(f"summary embedding shape: {summary_embeddings.shape}")
-    similarities = pytorch_cos_sim(relation_embeddings, summary_embeddings).squeeze()
-    if debug:
-      print("Similarities:")
-      print(similarities.shape)
-      print(similarities)
-    indices = similarities.argsort(descending=True)[:SUMMARIES_PER_BATCH+1] 
-    if debug:
-      print("Indices:")
-      print(indices)
-    # summary = summarize("\n".join([summaries[i] for i in indices]), model)
-    summary = "\n".join([summaries[i] for i in indices])
-    input_text = text_format.format(text=summary, relationships="\n".join(relations), count=len(relations))
-    output = call_LLM(instructions, input_text, model)
-    output_jsons.append(output)
+    input_text = prompt_template.format_prompt(text=paper_text, relationships="\n".join(relationships[i:i+BATCH_SIZE]), count=len(relationships[i:i+BATCH_SIZE])).to_string()
+    print(input_text)
+    batch_output = call_LLM(input_text, model)
+    parsed_batch_output = parser.parse(batch_output)
+    if debug: print(f"Batch {i//BATCH_SIZE + 1} complete. Output:\n{parsed_batch_output.dict()}")
+    if "Relations" not in parsed_output:
+      parsed_output["Relations"] = parsed_batch_output.dict()["Relations"]
+    else:
+      parsed_output["Relations"] += parsed_batch_output.dict()["Relations"]
   
-  if debug: print(f"Pipeline complete. Output:\n{output}")
+  if debug: print(f"Pipeline complete. Output:\n{[r['RelationshipClassification'] for r in parsed_output['Relations']]}")
   
-  #ensure correct formatting and merge all outputs
-  parsed_output = {"relations":[]}
-  for output_json in output_jsons:
-    parsed_json = parser.parse(output_json).dict()
-    for relation in parsed_json["relations"]:
-      if relation not in parsed_output["relations"]:
-        parsed_output["relations"].append(relation)
-  
-  if debug: print(f"Parsed output:\n{parsed_output}")
   # ensure only desired relations are present
 
-  final_output = {"relations":data["relations"]}
+  final_output = {"Relations":data["Relations"]}
   #set all relations to a default of not applicable
-  for relation in final_output["relations"]:
-    relation["relation_classification"] = "not applicable"
+  for relation in final_output["Relations"]:
+    relation["RelationshipClassification"] = "not applicable"
   
   # Create a dictionary for quick lookup of relations
   parsed_relations_dict = {
-    (relation["independent_variable_name"], relation["dependent_variable_name"]): relation
-    for relation in parsed_output["relations"]
+    (relation["VariableOneName"], relation["VariableTwoName"]): relation
+    for relation in parsed_output["Relations"]
 }
 
   # Update the final_output based on the dictionary
-  for relation in final_output["relations"]:
-    key = (relation["independent_variable_name"], relation["dependent_variable_name"])
+  for relation in final_output["Relations"]:
+    key = (relation["VariableOneName"], relation["VariableTwoName"])
     if key in parsed_relations_dict:
         parsed_relation = parsed_relations_dict[key]
-        relation["relation_classification"] = parsed_relation["relation_classification"]
-        relation["is_causal"] = parsed_relation["is_causal"]
-        relation["supporting_text"] = parsed_relation["supporting_text"]
+        relation["RelationshipClassification"] = parsed_relation["RelationshipClassification"]
+        relation["isCausal"] = parsed_relation["isCausal"]
+        relation["SupportingText"] = parsed_relation["SupportingText"]
   
   return final_output
 
@@ -229,8 +161,7 @@ def call_pipeline(data_path:str, settings_path:str, *, use_alternate_names=False
     for relation in data["relations"]:
       relation["independent_variable_name"] = relation["alternate_independent_variable_name"]
       relation["dependent_variable_name"] = relation["alternate_dependent_variable_name"]
-  return pipeline(data, instructions, text, model, debug=debug) 
-
+  return pipeline(data, instructions, text, model, debug=debug)
 
 if __name__ == "__main__":
   EVALUATE = True
