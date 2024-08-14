@@ -103,7 +103,7 @@ def cluster_text(text:str, num_clusters:int) -> List[str]:
   return list(clusters.values())
 
 def call_LLM(instruction, text, model:str) -> str:
-  """Used to call a Google LLM model with ResourceExhausted handling"""
+  """Used to call a OpenAI LLM model"""
   print("------------------------------------START PROMPT------------------------------------")
   print(text)
   print("-------------------------------------END PROMPT-------------------------------------")
@@ -145,7 +145,7 @@ def pipeline(data:Dict, instructions:str, text_format:str, model:str, *, debug:b
   relationships:List[str] = extract_all_ordered_pairs(data)
   
   #Create clusters and summarize
-  CLUSTER_MULTIPLIER:float = 3 #The number of clusters is (num relationships * this number).
+  CLUSTER_MULTIPLIER:float = 1 #The number of clusters is (num relationships * this number).
   summaries = []
   clusters = cluster_text(paper_text, max(1, int(len(relationships)*CLUSTER_MULTIPLIER + 1))) # ensure at least one cluster
   print(len(clusters))
@@ -233,7 +233,7 @@ if __name__ == "__main__":
   RANDOMIZE = False
   DEBUG = True
   NUM_TRIALS = 1
-  NUM_PAPERS = 1
+  NUM_PAPERS = 10
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}

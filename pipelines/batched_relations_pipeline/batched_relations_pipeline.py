@@ -91,8 +91,11 @@ def extract_all_ordered_pairs(data:Dict) -> List[str]:
 
 def call_LLM(text, model:genai.GenerativeModel) -> str:
   """Used to call a Google LLM model with ResourceExhausted handling"""
+  print("PROMPT:")
+  print(text)
   try:
     result = model.generate_content(text)
+    print(result)
     return result.text
   except ResourceExhausted:
     print("ResourceExhausted error. Retrying in 15 seconds...")
@@ -146,7 +149,7 @@ def pipeline(data:Dict, model:genai.GenerativeModel, prompt:str, *, debug:bool=F
                           partial_variables={"format_instructions":parser.get_format_instructions}
                           )
   parsed_output = {}
-  BATCH_SIZE = 3
+  BATCH_SIZE = 5
   for i in range(0, len(relationships), BATCH_SIZE):
     input_text = prompt_template.format_prompt(text=paper_text, relationships="\n".join(relationships[i:i+BATCH_SIZE]), count=len(relationships[i:i+BATCH_SIZE])).to_string()
     print(input_text)
@@ -197,10 +200,10 @@ def call_pipeline(data_path, settings_path:str) -> Dict:
 
 if __name__ == "__main__":
   EVALUATE = True
-  RANDOMIZE = True
+  RANDOMIZE = False
   DEBUG = True
   NUM_TRIALS = 1
-  NUM_PAPERS = 5
+  NUM_PAPERS = 1
   
   def score(solution:List[Dict], submission:List[Dict]) -> List[float]:
     scores = {}

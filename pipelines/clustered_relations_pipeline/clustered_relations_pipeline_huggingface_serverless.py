@@ -17,7 +17,7 @@ from os import listdir, getenv
 from datetime import datetime
 
 key = getenv("HUGGING_FACE_API_KEY")
-API_URL = "https://api-inference.huggingface.co/models/mistralai/Mistral-7B-Instruct-v0.3"
+API_URL = "https://api-inference.huggingface.co/models/meta-llama/Meta-Llama-3-8B-Instruct"
 headers = {"Authorization" : f"Bearer {key}"}
 
 class SingleRelation(BaseModel):
@@ -113,7 +113,9 @@ def cluster_text(text:str, num_clusters:int) -> List[str]:
 
 def call_LLM(text) -> str:
   """Used to encapsulate the model call"""
-  result = requests.post(API_URL, headers=headers, json={"inputs":text}).json()[0].get("generated_text")
+  result = requests.post(API_URL, headers=headers, json={"inputs":text}).json()
+  print(result)
+  result = result[0].get("generated_text")
   return result.partition(text)[-1]
     
 def summarize(text:str) -> str:

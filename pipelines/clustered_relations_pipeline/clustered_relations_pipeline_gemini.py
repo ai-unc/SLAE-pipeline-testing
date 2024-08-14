@@ -1,5 +1,4 @@
 import google.generativeai as genai
-import pandas as pd
 import json
 import yaml
 from langchain.pydantic_v1 import BaseModel, validator, Field
@@ -18,7 +17,6 @@ from datetime import datetime
 
 key = getenv("GOOGLE_API_KEY")
 genai.configure(api_key=key)
-
 
 class SingleRelation(BaseModel):
     independent_variable_name: str
